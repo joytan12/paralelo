@@ -1,0 +1,301 @@
+===========================================================================
+  INSTRUCTIVO DE COMPILACIÓN Y EJECUCIÓN — PROYECTO OCTREE
+===========================================================================
+
+Este proyecto tiene TRES versiones del algoritmo octree:
+
+  1. CUDA (GPU)        → raíz del proyecto
+  2. CPU 1 hilo        → carpeta  cpu_single/
+  3. CPU multi-hilo    → carpeta  cpu_multi/
+
+  En la versión CUDA, los vértices, triángulos y cubos permanecen en la VRAM
+  durante el refinamiento. El balance 2:1, la generación de hijos, la
+  clasificación y la poda se ejecutan en la GPU. Solo la lectura inicial del
+  .mdl y la exportación final a VTK utilizan la RAM del CPU.
+
+El archivo de modelo por defecto es: cortex.mdl (en la raíz del proyecto)
+Las salidas VTK se guardan en la carpeta output/ de cada versión.
+
+---------------------------------------------------------------------------
+  REQUISITOS
+---------------------------------------------------------------------------
+
+  Versión CUDA:
+    - nvcc  (NVIDIA CUDA Toolkit)
+    - GPU compatible con sm_89 (Ada Lovelace — RTX 4050 o similar)
+
+  Versiones CPU:
+    - g++ con soporte C++17   (sudo apt install g++)
+    - OpenMP (incluido en g++ por defecto en la mayoría de distribuciones)
+
+  Verificar instalaciones:
+    nvcc --version
+    g++ --version
+    echo | g++ -fopenmp -x c - -o /dev/null && echo "OpenMP OK"
+
+---------------------------------------------------------------------------
+  ESTRUCTURA DE CARPETAS
+---------------------------------------------------------------------------
+
+  paralelo/
+  ├── Makefile              ← Makefile de la versión CUDA (GPU)
+  ├── cortex.mdl            ← Modelo de entrada
+  ├── verificar.sh          ← Comprobación cruzada de las tres versiones
+  ├── src/                  ← Fuentes CUDA
+  ├── cpu_single/
+  │   ├── Makefile          ← Makefile versión 1 hilo
+  │   ├── src/              ← Fuentes C++ (1 hilo)
+  │   └── output/           ← Salidas VTK (se crea automáticamente)
+  └── cpu_multi/
+      ├── Makefile          ← Makefile versión multi-hilo (OpenMP)
+      ├── src/              ← Fuentes C++ (OpenMP)
+      └── output/           ← Salidas VTK (se crea automáticamente)
+
+---------------------------------------------------------------------------
+  VERSIÓN CUDA — GPU
+---------------------------------------------------------------------------
+
+  Desde la raíz del proyecto (paralelo/):
+
+  Compilar:
+    make
+
+  Ejecutar (3 niveles por defecto):
+    make run
+
+  Ejecutar con parámetros personalizados:
+    make run LEVEL=5
+    make run LEVEL=5 QUIET=1                  ← sin prints intermedios
+    make run LEVEL=5 MODE=uniform             ← refina todas las hojas
+    make run LEVEL=4 MODE=uniform QUIET=1
+    make run LEVEL=4 MDL=cortex.mdl
+
+  Ver ayuda:
+    make help
+    ./octree --help
+
+  Limpiar:
+    make clean
+
+  Binario generado: ./octree
+  Salida VTK:       output/octree_pruned_level_N.vtk      (MODE=adaptive)
+                    output/octree_uniform_level_N.vtk     (MODE=uniform)
+
+---------------------------------------------------------------------------
+  VERSIÓN CPU — 1 HILO (cpu_single/)
+---------------------------------------------------------------------------
+
+  Desde la raíz del proyecto (paralelo/):
+
+  Compilar:
+    make -C cpu_single
+
+  Ejecutar (3 niveles por defecto):
+    make -C cpu_single run
+
+  Ejecutar con parámetros personalizados:
+    make -C cpu_single run LEVEL=5
+    make -C cpu_single run LEVEL=5 QUIET=1
+    make -C cpu_single run LEVEL=5 MODE=uniform
+    make -C cpu_single run LEVEL=4 MDL=../cortex.mdl
+
+  Limpiar:
+    make -C cpu_single clean
+
+  Binario generado: cpu_single/octree_cpu
+  Salida VTK:       cpu_single/output/octree_cpu_single_level_N.vtk
+                    cpu_single/output/octree_cpu_single_uniform_level_N.vtk
+
+  También puedes entrar a la carpeta y ejecutar directamente:
+    cd cpu_single
+    make
+    make run LEVEL=3
+    ./octree_cpu 3 ../cortex.mdl
+    ./octree_cpu 5 ../cortex.mdl --quiet --uniform
+
+---------------------------------------------------------------------------
+  VERSIÓN CPU — MULTI-HILO con OpenMP (cpu_multi/)
+---------------------------------------------------------------------------
+
+  Desde la raíz del proyecto (paralelo/):
+
+  Compilar:
+    make -C cpu_multi
+
+  Ejecutar (todos los núcleos, 3 niveles por defecto):
+    make -C cpu_multi run
+
+  Ejecutar con parámetros personalizados:
+    make -C cpu_multi run LEVEL=5
+    make -C cpu_multi run LEVEL=4 THREADS=4
+    make -C cpu_multi run LEVEL=5 THREADS=8 QUIET=1
+    make -C cpu_multi run LEVEL=5 MODE=uniform THREADS=8
+    make -C cpu_multi run LEVEL=4 THREADS=8 MDL=../cortex.mdl
+
+  Limpiar:
+    make -C cpu_multi clean
+
+  Binario generado: cpu_multi/octree_cpu_mt
+  Salida VTK:       cpu_multi/output/octree_cpu_multi_level_N.vtk
+                    cpu_multi/output/octree_cpu_multi_uniform_level_N.vtk
+
+  También puedes fijar el número de hilos con la variable de entorno:
+    cd cpu_multi
+    OMP_NUM_THREADS=4  ./octree_cpu_mt 3 ../cortex.mdl
+    OMP_NUM_THREADS=8  ./octree_cpu_mt 5 ../cortex.mdl --quiet
+    OMP_NUM_THREADS=1  ./octree_cpu_mt 3 ../cortex.mdl   ← equivale a 1 hilo
+
+---------------------------------------------------------------------------
+  PARÁMETROS DE EJECUCIÓN
+---------------------------------------------------------------------------
+
+  LEVEL   → Profundidad máxima del octree (1 a 20).
+             Valores recomendados: 3 (rápido), 5 (moderado), 7 (intenso).
+
+  MDL     → Ruta al archivo de modelo .mdl.
+             Por defecto apunta a ../cortex.mdl (relativo a cada carpeta).
+
+  MODE    → Modo de refinamiento. Dos valores posibles:
+
+             MODE=adaptive  (por defecto)
+               Solo se subdividen cubos BORDER y los vecinos necesarios para
+               mantener el balance topológico 2:1. Se consideran vecinos por
+               cara, arista o vértice; la diferencia de niveles entre hojas
+               vecinas nunca supera 1. Los INSIDE se conservan como hojas.
+               No todo el dominio llega necesariamente a LEVEL.
+
+             MODE=uniform
+               Todas las hojas vivas se subdividen en cada nivel, sin la
+               regla de balance. El interior del modelo también se refina
+               hasta LEVEL, así que produce bastantes más cubos.
+
+             En ambos modos los cubos OUTSIDE se podan en cada etapa.
+
+  QUIET   → QUIET=1 omite los prints intermedios por etapa.
+             Se conservan el resumen final y la tabla de tiempo/memoria.
+             QUIET=0 (por defecto) muestra el detalle de cada etapa.
+
+  THREADS → (Solo cpu_multi) Número de hilos OpenMP.
+             Por defecto usa todos los núcleos del sistema (nproc).
+
+  Banderas equivalentes del ejecutable:
+    -q / --quiet      igual que QUIET=1
+    -u / --uniform    igual que MODE=uniform
+    -a / --adaptive   igual que MODE=adaptive
+    -h / --help       muestra la ayuda
+
+---------------------------------------------------------------------------
+  INDICADORES DE TIEMPO Y MEMORIA
+---------------------------------------------------------------------------
+
+  Las tres versiones imprimen al final una tabla con el tiempo y el espacio
+  que ocupa el modelo en cada nivel. Se muestra siempre, incluso con QUIET=1.
+
+    === Tiempo y VRAM por nivel ===
+     Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+    -------+------------+------------+------------+-----------+------------+-----------
+         1 |          8 |          0 |          8 |     384 B |  111.52 KB |     0.004
+         ...
+         5 |       5501 |       2029 |       3472 | 257.86 KB |  807.42 KB |     0.004
+
+  Columnas:
+
+    Octree      → Memoria exacta del modelo en ese nivel:
+                  hojas * sizeof(Cube). Este es el dato de cuánta memoria
+                  ocupa el octree por nivel.
+
+    Pico etapa  → Máximo de memoria viva a la vez durante esa etapa. Es el
+                  mayor entre el momento del refinamiento (entrada + salida
+                  + auxiliares) y el de la poda (dos arreglos completos).
+                  Incluye la malla.
+
+    Tiempo      → Tiempo de pared de la etapa: refinar + clasificar + podar.
+
+  Al pie de la tabla:
+
+    CUDA        → sizeof(Cube) = 48 B, malla en VRAM, pico calculado, pico
+                  medido por el driver (cudaMemGetInfo), línea base del
+                  contexto CUDA y VRAM total del dispositivo.
+
+    CPU         → sizeof(Cube) = 24 B, malla en RAM, pico calculado y
+                  VmHWM (pico real de memoria residente según el kernel).
+
+  Nota: el pico medido por el driver CUDA se redondea a los bloques de su
+  suballocador (múltiplos de ~2 MB), por eso en niveles bajos aparece
+  inflado frente al pico calculado, que es exacto.
+
+---------------------------------------------------------------------------
+  COMPILAR Y EJECUTAR TODO DE UNA VEZ
+---------------------------------------------------------------------------
+
+  Desde la raíz del proyecto (paralelo/):
+
+    # Compilar las 3 versiones
+    make && make -C cpu_single && make -C cpu_multi
+
+    # Ejecutar las 3 versiones con 3 niveles
+    make run
+    make -C cpu_single run
+    make -C cpu_multi run
+
+    # Ejecutar las 3 con nivel 5, sin prints intermedios
+    make run LEVEL=5 QUIET=1
+    make -C cpu_single run LEVEL=5 QUIET=1
+    make -C cpu_multi run LEVEL=5 QUIET=1
+
+    # Ejecutar las 3 en modo uniforme
+    make run LEVEL=5 MODE=uniform
+    make -C cpu_single run LEVEL=5 MODE=uniform
+    make -C cpu_multi run LEVEL=5 MODE=uniform
+
+---------------------------------------------------------------------------
+  COMPROBACIÓN CRUZADA
+---------------------------------------------------------------------------
+
+  El script verificar.sh compila las tres versiones, las ejecuta en los dos
+  modos y contrasta los conteos finales, que deben coincidir exactamente:
+
+    ./verificar.sh        ← nivel 5 por defecto
+    ./verificar.sh 6
+
+---------------------------------------------------------------------------
+  ARCHIVOS VTK GENERADOS
+---------------------------------------------------------------------------
+
+  Los archivos .vtk se pueden abrir con ParaView (www.paraview.org).
+
+  En ParaView:
+    1. File > Open > seleccionar el archivo .vtk
+    2. Click en "Apply"
+    3. En la barra de colores, seleccionar "state" o "level" para visualizar
+       la clasificación (0=fuera, 1=dentro, 2=borde)
+
+  Modo adaptativo (por defecto):
+    output/octree_pruned_level_N.vtk                     ← CUDA
+    cpu_single/output/octree_cpu_single_level_N.vtk
+    cpu_multi/output/octree_cpu_multi_level_N.vtk
+
+  Modo uniforme (MODE=uniform):
+    output/octree_uniform_level_N.vtk                    ← CUDA
+    cpu_single/output/octree_cpu_single_uniform_level_N.vtk
+    cpu_multi/output/octree_cpu_multi_uniform_level_N.vtk
+
+  Los dos modos escriben archivos distintos, así que puedes generar ambos y
+  compararlos lado a lado en ParaView.
+
+---------------------------------------------------------------------------
+  LIMPIAR TODO
+---------------------------------------------------------------------------
+
+    make clean
+    make -C cpu_single clean
+    make -C cpu_multi clean
+
+===========================================================================
+
+
+---------------------------------------------------------------------------
+  PARA VISUALIZAR MALLA GENERADA
+---------------------------------------------------------------------------
+
+    paraview

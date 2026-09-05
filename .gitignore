@@ -1,0 +1,6 @@
+# Mallas generadas por las ejecuciones (~6 GB en total).
+# GitHub rechaza archivos de mas de 100 MB; estas salidas se regeneran
+# con "make" y ejecutando el binario correspondiente (ver README.md).
+output/
+*.vtk
+*.oct

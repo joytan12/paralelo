@@ -1,0 +1,3 @@
+[submodule "external/MixedOcTree"]
+	path = external/MixedOcTree
+	url = https://github.com/clobosmesher/MixedOcTree.git
