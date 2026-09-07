@@ -299,3 +299,22 @@ Las salidas VTK se guardan en la carpeta output/ de cada versión.
 ---------------------------------------------------------------------------
 
     paraview
+
+---------------------------------------------------------------------------
+  ANALIZAR NIVELES Y REGLA 2:1 DE UN VTK
+---------------------------------------------------------------------------
+
+  El analizador C++ esta en vtk_refinement_analyzer/ y trabaja con los VTK
+  binarios generados en output/. Muestra la cantidad de celdas por nivel,
+  indica si el refinamiento es completo/uniforme o por niveles/adaptativo y
+  comprueba vecinos por cara, arista o vertice para la regla 2:1.
+
+    make analyze archive=output/octree_pruned_level_5.vtk
+    make analyze archive=output/octree_uniform_level_5.vtk
+    make run analyze archive=output/octree_pruned_level_5.vtk LEVEL=5 QUIET=1
+
+  Codigo de salida 0: cumple 2:1. Codigo 2: se encontraron violaciones.
+  Ejecucion directa desde la carpeta del analizador:
+
+    make -C vtk_refinement_analyzer
+    make -C vtk_refinement_analyzer run ARCHIVE=../output/archivo.vtk

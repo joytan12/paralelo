@@ -36,7 +36,7 @@ TARGET     := octree
 # Reglas
 # ===========================================================================
 
-.PHONY: all clean run help
+.PHONY: all clean run analyze help
 
 all: $(TARGET)
 
@@ -98,6 +98,10 @@ endif
 run: $(TARGET) | $(OUT_DIR)
 	./$(TARGET) $(LEVEL) $(MDL) $(RUN_OPTS)
 
+analyze:
+	@test -n "$(archive)" || (echo "Uso: make run analyze archive=output/archivo.vtk"; exit 1)
+	$(MAKE) -C vtk_refinement_analyzer run ARCHIVE="$(abspath $(archive))"
+
 help:
 	@echo "Objetivos: all (por defecto), run, clean, help"
 	@echo ""
@@ -107,6 +111,7 @@ help:
 	@echo "  QUIET=1        Sin prints intermedios (conserva resumen y tabla)"
 	@echo "  MODE=adaptive  Balance 2:1, solo BORDER y vecinos (default)"
 	@echo "  MODE=uniform   Subdivide todas las hojas en todos los niveles"
+	@echo "  make run analyze archive=output/archivo.vtk  Analiza niveles y regla 2:1"
 	@echo "  ARCH=sm_XX     Arquitectura CUDA destino. Default: sm_89"
 	@echo ""
 	@echo "Ejemplo: make run LEVEL=5 MODE=uniform QUIET=1"

@@ -96,6 +96,7 @@ paralelo/
 ├── cortex.mdl            # Modelo 3D de entrada (por defecto)
 ├── src/                  # Código fuente de la versión CUDA (GPU) y VTK
 ├── output/               # Salidas VTK de la versión CUDA (se crea automáticamente)
+├── vtk_refinement_analyzer/ # Analizador C++ de niveles y balance 2:1
 │
 ├── cpu_single/           # Versión CPU Secuencial (1 hilo)
 │   ├── Makefile          # Makefile de la versión secuencial
@@ -175,6 +176,28 @@ Puedes compilar y ejecutar esta versión directamente desde la raíz del proyect
     ```
 
 *(Alternativamente, puedes entrar a la carpeta `cd cpu_single`, y ejecutar `make`, `make run LEVEL=4` o directamente `./octree_cpu 4 ../cortex.mdl --quiet`)*.
+
+---
+
+### 4. Analizar un VTK generado
+
+El analizador lee los VTK binarios de `output/` y muestra la distribución de
+celdas por nivel, si el refinamiento es completo/uniforme o por niveles/
+adaptativo, y si los vecinos cumplen la regla 2:1 por cara, arista o vértice.
+
+```bash
+make analyze archive=output/octree_pruned_level_5.vtk
+make analyze archive=output/octree_uniform_level_5.vtk
+make run analyze archive=output/octree_pruned_level_5.vtk LEVEL=5 QUIET=1
+```
+
+Devuelve código `0` si cumple 2:1 y código `2` si encuentra violaciones.
+También puede compilarse o ejecutarse directamente:
+
+```bash
+make -C vtk_refinement_analyzer
+make -C vtk_refinement_analyzer run ARCHIVE=../output/archivo.vtk
+```
 
 ---
 
