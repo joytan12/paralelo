@@ -1,0 +1,19 @@
+nivel  3 adaptive  base=252      exp=252      pasadas=1
+  base=252 exp=252  identicos=True
+nivel  3 uniform   base=259      exp=259      pasadas=1
+  base=259 exp=259  identicos=True
+nivel  4 adaptive  base=1173     exp=1173     pasadas=1
+  base=1173 exp=1173  identicos=True
+nivel  4 uniform   base=1572     exp=1572     pasadas=1
+  base=1572 exp=1572  identicos=True
+nivel  6 adaptive  base=24917    exp=24917    pasadas=2
+  base=24917 exp=24917  identicos=True
+nivel  6 uniform   base=78019    exp=78019    pasadas=1
+  base=78019 exp=78019  identicos=True
+nivel  7 adaptive  base=105634   exp=105592   pasadas=3
+  base=105634 exp=105592  identicos=False
+nivel  7 uniform   base=596068   exp=596068   pasadas=1
+  base=596068 exp=596068  identicos=True
+nivel  8 adaptive  base=435534   exp=435275   pasadas=3
+  base=435534 exp=435275  identicos=False
+nivel  8 uniform   base=4653818  exp=4653818  pasadas=1

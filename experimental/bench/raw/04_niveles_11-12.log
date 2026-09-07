@@ -1,0 +1,59 @@
+=== re-verificacion nivel 9 tras los parches ===
+   celdas base=1774809 exp=1774809  IDENTICOS=True
+
+=== nivel 11: tablas por nivel (deben coincidir) ===
+  nivel  1  base          8/        0/        8  exp          8/        0/        8  OK
+  nivel  2  base         55/        1/       54  exp         55/        1/       54  OK
+  nivel  3  base        252/       50/      202  exp        252/       50/      202  OK
+  nivel  4  base       1173/      325/      848  exp       1173/      325/      848  OK
+  nivel  5  base       5501/     2029/     3472  exp       5501/     2029/     3472  OK
+  nivel  6  base      24917/    10924/    13993  exp      24917/    10924/    13993  OK
+  nivel  7  base     105634/    49252/    56382  exp     105634/    49252/    56382  OK
+  nivel  8  base     435534/   209824/   225710  exp     435534/   209824/   225710  OK
+  nivel  9  base    1774809/   871307/   903502  exp    1774809/   871307/   903502  OK
+  nivel 10  base    7161958/  3546955/  3615003  exp    7161958/  3546955/  3615003  OK
+  nivel 11  base   28786873/ 14324530/ 14462343  exp   28786873/ 14324530/ 14462343  OK
+  base:   Pico calculado del algoritmo  : 3.22 GB | Tiempo total de refinamiento  : 7.696 s
+  exp :   Pico calculado del algoritmo  : 464.72 MB | Tiempo total de refinamiento  : 15.541 s
+
+=== nivel 12: base vs experimental ===
+--- base ---
+Cubo raíz:
+  Centro    : (134.95, 134.69, 86.52)
+  Half-size : 88.94
+
+--- experimental ---
+
+=== Descomposicion ===
+  Subarboles procesados         : 8 (nivel 1)
+  Pasadas externas              : 2 de 3
+  Balance 2:1 entre subarboles  : verificado, 0 violaciones
+  Halo residente en VRAM        : 33.93 MB
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |  111.19 KB |     0.004
+     2 |         55 |          1 |         54 |   2.58 KB |   61.60 MB |     0.028
+     3 |        252 |         50 |        202 |  11.81 KB |   61.60 MB |     0.027
+     4 |       1173 |        325 |        848 |  54.98 KB |   61.62 MB |     0.024
+     5 |       5501 |       2029 |       3472 | 257.86 KB |   61.70 MB |     0.028
+     6 |      24917 |      10924 |      13993 |   1.14 MB |   61.99 MB |     0.032
+     7 |     105634 |      49252 |      56382 |   4.84 MB |   63.22 MB |     0.041
+     8 |     435534 |     209824 |     225710 |  19.94 MB |   68.19 MB |     0.112
+     9 |    1774809 |     871307 |     903502 |  81.24 MB |   88.22 MB |     0.378
+    10 |    7161958 |    3546955 |    3615003 | 327.85 MB |  168.15 MB |     1.513
+    11 |   28786873 |   14324530 |   14462343 |   1.29 GB |  488.39 MB |     6.274
+    12 |  115425336 |   57572261 |   57853075 |   5.16 GB |    1.77 GB |    24.914
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 110.77 KB
+  Pico calculado del algoritmo  : 1.77 GB
+  Pico medido por el driver     : 1.79 GB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 65.885 s
+
+Refinamiento completado exitosamente!
+
+[process exited while detached; exit code unknown]

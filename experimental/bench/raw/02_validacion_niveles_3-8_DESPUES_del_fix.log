@@ -1,0 +1,23 @@
+nivel  3 adaptive  pasadas=1
+   celdas base=252 exp=252  IDENTICOS=True
+nivel  3 uniform   pasadas=1
+   celdas base=259 exp=259  IDENTICOS=True
+nivel  4 adaptive  pasadas=1
+   celdas base=1173 exp=1173  IDENTICOS=True
+nivel  4 uniform   pasadas=1
+   celdas base=1572 exp=1572  IDENTICOS=True
+nivel  5 adaptive  pasadas=2
+   celdas base=5501 exp=5501  IDENTICOS=True
+nivel  5 uniform   pasadas=1
+   celdas base=10646 exp=10646  IDENTICOS=True
+nivel  6 adaptive  pasadas=2
+   celdas base=24917 exp=24917  IDENTICOS=True
+nivel  6 uniform   pasadas=1
+   celdas base=78019 exp=78019  IDENTICOS=True
+nivel  7 adaptive  pasadas=2
+   celdas base=105634 exp=105634  IDENTICOS=True
+nivel  7 uniform   pasadas=1
+   celdas base=596068 exp=596068  IDENTICOS=True
+nivel  8 adaptive  pasadas=2
+   celdas base=435534 exp=435534  IDENTICOS=True
+nivel  8 uniform   pasadas=1

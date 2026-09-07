@@ -1,0 +1,26 @@
+===== SPLIT=1 =====
+=== Resultado final: 28786873 cubos sobrevivientes ===
+  Subarboles procesados         : 8 (nivel 1)
+  Pasadas externas              : 2 de 3
+  Balance 2:1 entre subarboles  : verificado, 0 violaciones
+  Halo residente en VRAM        : 16.50 MB
+  Pico calculado del algoritmo  : 464.72 MB
+  Tiempo total de refinamiento  : 38.353 s
+===== SPLIT=2 =====
+=== Resultado final: 28786537 cubos sobrevivientes ===
+  Subarboles procesados         : 55 (nivel 2)
+  Pasadas externas              : 3 de 3
+  Balance 2:1 entre subarboles  : 4163 violaciones SIN resolver
+  Halo residente en VRAM        : 45.68 MB
+  Pico calculado del algoritmo  : 204.52 MB
+  Tiempo total de refinamiento  : 65.106 s
+===== SPLIT=3 =====
+=== Resultado final: 28779845 cubos sobrevivientes ===
+  Subarboles procesados         : 259 (nivel 3)
+  Pasadas externas              : 3 de 3
+  Balance 2:1 entre subarboles  : 83184 violaciones SIN resolver
+  Halo residente en VRAM        : 85.39 MB
+  Pico calculado del algoritmo  : 199.53 MB
+  Tiempo total de refinamiento  : 67.871 s
+
+[exited with code 0]

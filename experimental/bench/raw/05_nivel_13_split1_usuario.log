@@ -1,0 +1,86 @@
+❯ make run LEVEL=13
+./octree 13 cortex.mdl --split-level 1 --passes 3 --adaptive
+=== Octree CUDA (experimental) - Descomposicion por subarboles ===
+Niveles de refinamiento: 13
+Modo de refinamiento   : adaptativo con balance 2:1
+Nivel de descomposicion: 1  (hasta 8 subarboles secuenciales)
+Modelo: cortex.mdl
+
+[MDL] Cargado 'cortex.mdl'
+      Vértices : 3152
+      Triángulos: 6300
+      BBox min  : (50.25, 59.38, 19.86)
+      BBox max  : (219.65, 209.99, 153.19)
+      Centro    : (134.95, 134.69, 86.52)
+      Half-size : 88.94
+
+Cubo raiz:
+  Centro    : (134.95, 134.69, 86.52)
+  Half-size : 88.94
+
+--- Fase A: descenso uniforme hasta el nivel 1 ---
+  Nivel 1: 1 -> 8 hojas (poda: 0 eliminados) | 0.008 s
+
+  Subarboles vivos tras la fase A: 8 de 8 posibles
+
+--- Pasada 1/3 ---
+  Subarbol  1/8:  62240155 hojas | cascara    72826 |  39.548 s
+  Subarbol  2/8:  60475065 hojas | cascara    70398 |  28.381 s
+  Subarbol  3/8:  45392762 hojas | cascara   103202 |  17.350 s
+  Subarbol  4/8:  68742650 hojas | cascara    77485 |  43.154 s
+  Subarbol  5/8:  61996274 hojas | cascara    72148 |  29.216 s
+  Subarbol  6/8:  56648503 hojas | cascara    64939 |  49.124 s
+  Subarbol  7/8:  40487645 hojas | cascara   123841 |  33.043 s
+  Subarbol  8/8:  66202950 hojas | cascara    90654 | 110.373 s
+  Verificacion 2:1 entre subarboles: 448150 violaciones
+
+--- Pasada 2/3 ---
+  Subarbol  1/8:  62247925 hojas | cascara    76191 |  66.269 s
+  Subarbol  2/8:  60476871 hojas | cascara    71175 |  51.540 s
+  Subarbol  3/8:  45394267 hojas | cascara   103853 |  35.797 s
+  Subarbol  4/8:  68764427 hojas | cascara    86854 |  40.463 s
+  Subarbol  5/8:  62004716 hojas | cascara    75793 |  34.368 s
+  Subarbol  6/8:  56653018 hojas | cascara    66878 |  29.913 s
+  Subarbol  7/8:  40490858 hojas | cascara   125232 |  36.758 s
+  Subarbol  8/8:  66229655 hojas | cascara   102143 |  74.718 s
+  Verificacion 2:1 entre subarboles: 0 violaciones
+
+
+=== Resultado final: 462261737 cubos sobrevivientes ===
+  Dentro: 230840319 | Borde: 231421418
+  Refinamiento uniforme produciria: 549755813888 cubos (reduccion: 99.9%)
+
+=== Descomposicion ===
+  Subarboles procesados         : 8 (nivel 1)
+  Pasadas externas              : 2 de 3
+  Balance 2:1 entre subarboles  : verificado, 0 violaciones
+  Halo residente en VRAM        : 69.04 MB
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |  111.19 KB |     0.008
+     2 |         55 |          1 |         54 |   2.58 KB |  125.15 MB |     0.075
+     3 |        252 |         50 |        202 |  11.81 KB |  125.15 MB |     0.060
+     4 |       1173 |        325 |        848 |  54.98 KB |  125.17 MB |     0.056
+     5 |       5501 |       2029 |       3472 | 257.86 KB |  125.25 MB |     0.060
+     6 |      24917 |      10924 |      13993 |   1.14 MB |  125.54 MB |     0.062
+     7 |     105634 |      49252 |      56382 |   4.84 MB |  126.77 MB |     0.119
+     8 |     435534 |     209824 |     225710 |  19.94 MB |  131.74 MB |     0.305
+     9 |    1774809 |     871307 |     903502 |  81.24 MB |  151.77 MB |     0.680
+    10 |    7161958 |    3546955 |    3615003 | 327.85 MB |  231.70 MB |     1.778
+    11 |   28786873 |   14324530 |   14462343 |   1.29 GB |  551.94 MB |     5.626
+    12 |  115425336 |   57572261 |   57853075 |   5.16 GB |    1.82 GB |    22.852
+    13 |  462261737 |  230840319 |  231421418 |  20.66 GB |    7.01 GB |   106.855
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 110.77 KB
+  Pico calculado del algoritmo  : 7.01 GB
+  Pico medido por el driver     : 4.96 GB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 724.136 s
+
+Aviso: 462261737 cubos superan el limite del VTK legacy (268435455, indices de punto int32). No se escribe el archivo; usa --no-vtk o un split-level mayor con salida por piezas.
+
+Refinamiento completado exitosamente!

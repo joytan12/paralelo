@@ -1,0 +1,16 @@
+nivel 8 uniform
+   celdas base=4653818 exp=4653818  IDENTICOS=True
+nivel 9 adaptive  pasadas=2
+   celdas base=1774809 exp=1774809  IDENTICOS=True
+   base  pico:   Pico medido por el driver     : 212.00 MB
+   exp   pico:   Pico medido por el driver     : 88.00 MB
+   base  calc:   Pico calculado del algoritmo  : 204.24 MB | tiempo Tiempo total de refinamiento  : 0.588 s
+   exp   calc:   Pico calculado del algoritmo  : 33.43 MB | tiempo Tiempo total de refinamiento  : 2.087 s
+nivel 10 adaptive  pasadas=2
+   celdas base=7161958 exp=7161958  IDENTICOS=True
+   base  pico:   Pico medido por el driver     : 828.00 MB
+   exp   pico:   Pico medido por el driver     : 178.00 MB
+   base  calc:   Pico calculado del algoritmo  : 821.96 MB | tiempo Tiempo total de refinamiento  : 2.037 s
+   exp   calc:   Pico calculado del algoritmo  : 121.03 MB | tiempo Tiempo total de refinamiento  : 6.373 s
+
+[exited with code 0]
