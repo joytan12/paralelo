@@ -38,6 +38,23 @@ size_t gpuStagePeak();       // pico de la etapa actual
 size_t gpuRunPeak();         // pico de toda la ejecución
 
 // --------------------------------------------------------------------------
+// Guardián de VRAM física.
+//
+// Todo el proceso debe vivir en VRAM: si una reserva hiciera que el uso
+// superase la VRAM física del dispositivo, el driver de Windows (WDDM) puede
+// desbordar en silencio a RAM del sistema en vez de fallar. Eso no se nota
+// en el resultado ni en "cudaMalloc" (que igual devuelve éxito), solo en un
+// frenazo de rendimiento — y viola la condición de que todo viva en GPU.
+//
+// gpuRequireBudget() se llama ANTES de una reserva grande y compara contra
+// el total físico que reporta cudaMemGetInfo (que no cambia con el
+// desborde: siempre refleja la VRAM dedicada real). Si no alcanza, termina
+// el programa con un error explícito en vez de dejar que el driver decida
+// en silencio.
+// --------------------------------------------------------------------------
+void gpuRequireBudget(size_t additional_bytes, const char* what);
+
+// --------------------------------------------------------------------------
 // Reloj de pared en segundos (monotónico).
 // --------------------------------------------------------------------------
 double wallTime();

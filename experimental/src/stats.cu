@@ -3,6 +3,7 @@
 #include <cuda_runtime.h>
 #include <chrono>
 #include <cstdio>
+#include <cstdlib>
 
 // --------------------------------------------------------------------------
 // Estado interno de la medición de VRAM.
@@ -48,6 +49,36 @@ void gpuSampleVram() {
 
 size_t gpuStagePeak() { return g_stage_peak; }
 size_t gpuRunPeak()   { return g_run_peak; }
+
+// --------------------------------------------------------------------------
+// Guardián de VRAM física: ver justificación en stats.cuh.
+//
+// "total_bytes" de cudaMemGetInfo es la VRAM dedicada real del dispositivo;
+// no cambia si el driver decide desbordar a RAM del sistema. Por eso basta
+// comparar contra ese número para saber, ANTES de intentar la reserva, si
+// hace falta más que la VRAM física — sin depender de que cudaMalloc falle
+// (con WDDM puede no fallar nunca, solo volverse muy lento).
+// --------------------------------------------------------------------------
+void gpuRequireBudget(size_t additional_bytes, const char* what) {
+    size_t free_bytes = 0, total_bytes = 0;
+    if (cudaMemGetInfo(&free_bytes, &total_bytes) != cudaSuccess) return;
+
+    const size_t used = total_bytes - free_bytes;
+    if (used + additional_bytes <= total_bytes) return;
+
+    char b_need[32], b_free[32], b_total[32];
+    fprintf(stderr,
+            "Error: %s necesita %s adicionales, pero solo hay %s libres de "
+            "%s de VRAM fisica.\n"
+            "Se detiene aqui: continuar dejaria que el driver desborde a RAM "
+            "del sistema en silencio, y el proceso debe vivir integro en "
+            "VRAM.\n",
+            what,
+            formatBytes(additional_bytes, b_need, sizeof(b_need)),
+            formatBytes(free_bytes, b_free, sizeof(b_free)),
+            formatBytes(total_bytes, b_total, sizeof(b_total)));
+    exit(EXIT_FAILURE);
+}
 
 // --------------------------------------------------------------------------
 // Reloj de pared.

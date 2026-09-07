@@ -7,6 +7,7 @@
 #include <thrust/scan.h>
 #include <thrust/sort.h>
 #include <thrust/copy.h>
+#include <thrust/remove.h>
 #include <thrust/fill.h>
 
 // --------------------------------------------------------------------------
@@ -308,16 +309,24 @@ void launchAdaptiveRefinement(const Cube* d_own, int n_own,
     const int n_split = (int)thrust::count(split_begin, split_begin + n_own, 1);
     *n_refined_parents = n_split;
 
+    // d_keys y d_changed ya cumplieron su proposito (busqueda de vecinos y
+    // corte del cierre iterativo). Se liberan aqui, antes de reservar la
+    // salida, en vez de al final de la funcion: en el peor caso (subarbol
+    // grande, poco margen) esta espera de mas es justo lo que decide si la
+    // reserva de *d_output cabe en VRAM fisica o no.
+    CUDA_CHECK(cudaFree(d_keys));
+    CUDA_CHECK(cudaFree(d_changed));
+
     if (n_split == 0) {
         if (d_split_own) *d_split_own = d_split;
         else             CUDA_CHECK(cudaFree(d_split));
         CUDA_CHECK(cudaFree(d_split_prefix));
-        CUDA_CHECK(cudaFree(d_keys));
-        CUDA_CHECK(cudaFree(d_changed));
         return;
     }
 
     *n_output = n_own + 7 * n_split;
+    gpuRequireBudget((size_t)(*n_output) * sizeof(Cube),
+                     "refinamiento adaptativo (salida)");
     CUDA_CHECK(cudaMalloc(d_output, (size_t)(*n_output) * sizeof(Cube)));
 
     thrust::device_ptr<int> prefix_begin(d_split_prefix);
@@ -335,8 +344,6 @@ void launchAdaptiveRefinement(const Cube* d_own, int n_own,
     if (d_split_own) *d_split_own = d_split;
     else             CUDA_CHECK(cudaFree(d_split));
     CUDA_CHECK(cudaFree(d_split_prefix));
-    CUDA_CHECK(cudaFree(d_keys));
-    CUDA_CHECK(cudaFree(d_changed));
 }
 
 // --------------------------------------------------------------------------
@@ -345,6 +352,8 @@ void launchAdaptiveRefinement(const Cube* d_own, int n_own,
 void launchRefinement(const Cube* d_input, int n_input,
                       Cube** d_output, int* n_output) {
     *n_output = n_input * 8;
+    gpuRequireBudget((size_t)(*n_output) * sizeof(Cube),
+                     "refinamiento uniforme (salida)");
     CUDA_CHECK(cudaMalloc(d_output, (size_t)(*n_output) * sizeof(Cube)));
 
     const int threads = 256;
@@ -357,38 +366,35 @@ void launchRefinement(const Cube* d_input, int n_input,
 }
 
 // --------------------------------------------------------------------------
-// Poda GPU: conserva cubos INSIDE y BORDER.
+// Poda GPU IN-PLACE: conserva cubos INSIDE y BORDER, elimina FUERA.
 //
-// A diferencia del proyecto base, primero se cuenta en device y despues se
-// reserva el tamano exacto. El base reservaba el peor caso y por eso el pico
-// de la poda era 2 * n_input; aqui es (1 + tasa de supervivencia) * n_input.
+// El proyecto base (y una version anterior de este) reservaban un buffer de
+// salida aparte -- el peor caso en el base, el tamano exacto aqui -- lo que
+// de todas formas obligaba a que entrada y salida coexistieran en VRAM
+// durante la poda. thrust::remove_if compacta dentro del mismo arreglo
+// (orden estable, igual que std::remove_if): no hay una segunda copia, asi
+// que el pico de la poda deja de ser un multiplo de n_input y pasa a ser
+// exactamente n_input -- lo que ya estaba reservado por el refinamiento.
 // --------------------------------------------------------------------------
-struct IsNotOutside {
+struct IsOutside {
     __host__ __device__ bool operator()(const Cube& c) const {
-        return c.state != STATE_OUTSIDE;
+        return c.state == STATE_OUTSIDE;
     }
 };
 
-void launchPrune(const Cube* d_input, int n_input,
-                 Cube** d_output, int* n_output) {
-    *d_output = nullptr;
+void launchPrune(Cube* d_inout, int n_input, int* n_output) {
     *n_output = 0;
     if (n_input <= 0) return;
 
-    thrust::device_ptr<const Cube> in_begin(d_input);
-    thrust::device_ptr<const Cube> in_end(d_input + n_input);
+    thrust::device_ptr<Cube> begin(d_inout);
+    thrust::device_ptr<Cube> end(d_inout + n_input);
 
-    const int n_keep = (int)thrust::count_if(in_begin, in_end, IsNotOutside());
-    *n_output = n_keep;
-    if (n_keep == 0) return;
+    thrust::device_ptr<Cube> new_end =
+        thrust::remove_if(begin, end, IsOutside());
+    *n_output = (int)(new_end - begin);
 
-    CUDA_CHECK(cudaMalloc(d_output, (size_t)n_keep * sizeof(Cube)));
-
-    // Entrada y salida coexisten: pico de la poda.
+    // Sin reserva nueva: el pico de la poda es el mismo arreglo de entrada.
     gpuSampleVram();
-
-    thrust::device_ptr<Cube> out_begin(*d_output);
-    thrust::copy_if(in_begin, in_end, out_begin, IsNotOutside());
 }
 
 // --------------------------------------------------------------------------
@@ -559,6 +565,8 @@ unsigned long long launchVerifyBalance(const Cube* d_leaves, int n_leaves,
 // Memoria auxiliar del refinamiento adaptativo, por hoja de entrada.
 // --------------------------------------------------------------------------
 size_t adaptiveScratchBytesPerLeaf() {
-    // d_split (int) + d_split_prefix (int) + d_keys (LeafKey)
-    return 2 * sizeof(int) + sizeof(LeafKey);
+    // d_split (int) + d_split_prefix (int). d_keys (LeafKey) ya no cuenta:
+    // se libera antes de reservar la salida, asi que no coexiste con ella
+    // en el momento de mayor ocupacion.
+    return 2 * sizeof(int);
 }

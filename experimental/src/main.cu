@@ -417,12 +417,10 @@ int main(int argc, char* argv[]) {
 
         launchClassificationMesh(d_refined, n_refined, d_verts, d_tris, n_tris);
 
-        Cube* d_pruned = nullptr;
-        int   n_pruned = 0;
-        launchPrune(d_refined, n_refined, &d_pruned, &n_pruned);
-        CUDA_CHECK(cudaFree(d_refined));
+        int n_pruned = 0;
+        launchPrune(d_refined, n_refined, &n_pruned);   // in-place
 
-        d_current = d_pruned;
+        d_current = d_refined;
         n_current = n_pruned;
 
         LevelStat& row   = stats[level];
@@ -571,12 +569,10 @@ int main(int argc, char* argv[]) {
                 launchClassificationMesh(d_refined, n_refined,
                                          d_verts, d_tris, n_tris);
 
-                Cube* d_pruned = nullptr;
-                int   n_pruned = 0;
-                launchPrune(d_refined, n_refined, &d_pruned, &n_pruned);
-                CUDA_CHECK(cudaFree(d_refined));
+                int n_pruned = 0;
+                launchPrune(d_refined, n_refined, &n_pruned);   // in-place
 
-                d_own = d_pruned;
+                d_own = d_refined;
                 n_own = n_pruned;
 
                 // Acumular la fila del nivel sobre todos los subarboles.
@@ -592,7 +588,9 @@ int main(int argc, char* argv[]) {
                     : (size_t)(n_before + n_ghost) * adaptiveScratchBytesPerLeaf();
                 const size_t peak_refine = (size_t)(n_before + n_ghost + n_refined)
                                          * sizeof(Cube) + scratch;
-                const size_t peak_prune  = (size_t)(n_refined + n_own) * sizeof(Cube);
+                // La poda es in-place (remove_if): no coexisten dos copias,
+                // el pico es el mismo arreglo que ya reservo el refinamiento.
+                const size_t peak_prune  = (size_t)n_refined * sizeof(Cube);
                 const size_t peak_sub = bytes_mesh
                                       + shellTableBytes(shell_prev)
                                       + shellTableBytes(shell_new)

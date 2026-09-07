@@ -1,0 +1,31 @@
+exit=1
+--- stderr completo ---
+Error: poda (salida) necesita 2.78 GB adicionales, pero solo hay 1.47 GB libres de 6.00 GB de VRAM fisica.
+Se detiene aqui: continuar dejaria que el driver desborde a RAM del sistema en silencio, y el proceso debe vivir integro en VRAM.
+--- ultimas lineas de stdout ---
+  Half-size : 88.94
+
+--- Fase A: descenso uniforme hasta el nivel 1 ---
+  Nivel 1: 1 -> 8 hojas (poda: 0 eliminados) | 0.004 s
+
+  Subarboles vivos tras la fase A: 8 de 8 posibles
+
+--- Pasada 1/3 ---
+
+[exited with code 0]
+
+--- contenido de /tmp/l13_err.log (stderr) ---
+Error: poda (salida) necesita 2.78 GB adicionales, pero solo hay 1.47 GB libres de 6.00 GB de VRAM fisica.
+Se detiene aqui: continuar dejaria que el driver desborde a RAM del sistema en silencio, y el proceso debe vivir integro en VRAM.
+
+--- contenido de /tmp/l13_out.log (stdout, ultimas lineas) ---
+  Half-size : 88.94
+
+--- Fase A: descenso uniforme hasta el nivel 1 ---
+  Nivel 1: 1 -> 8 hojas (poda: 0 eliminados) | 0.004 s
+
+  Subarboles vivos tras la fase A: 8 de 8 posibles
+
+--- Pasada 1/3 ---
+
+exit code real del programa: 1

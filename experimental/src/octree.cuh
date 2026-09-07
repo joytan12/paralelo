@@ -72,11 +72,20 @@ void launchAdaptiveRefinement(const Cube* d_own, int n_own,
                               int** d_split_own);
 
 // --------------------------------------------------------------------------
-// Poda (stream compaction): elimina los cubos con state == 0 (FUERA).
-// Reserva el tamano exacto: primero cuenta en device, luego compacta.
+// Poda (stream compaction) IN-PLACE: elimina los cubos con state == 0
+// (FUERA), compactando los sobrevivientes al frente del mismo arreglo.
+//
+// No reserva memoria nueva. El llamador conserva d_inout (no lo libera) y
+// sigue usandolo, ahora con *n_output elementos validos al frente; el resto
+// del arreglo queda con basura y no debe leerse.
+//
+// Este es el punto donde el proyecto base (y una version anterior de este)
+// pedian un buffer de salida del tamano exacto del resultado, obligando a
+// que la entrada completa y la salida coexistieran en VRAM. Con remove_if
+// no coexisten dos copias: el pico de la poda pasa a ser solo n_input, no
+// n_input + n_keep.
 // --------------------------------------------------------------------------
-void launchPrune(const Cube* d_input, int n_input,
-                 Cube** d_output, int* n_output);
+void launchPrune(Cube* d_inout, int n_input, int* n_output);
 
 // --------------------------------------------------------------------------
 // Cuenta en device cuantos cubos tienen un estado dado.

@@ -188,13 +188,43 @@ corrupto, que es el comportamiento diseñado (ver "Límites conocidos" en
 Dos observaciones de esta corrida real que no se veían en las mediciones de
 niveles más bajos:
 
-- **El pico calculado (7,01 GB) superó los 5,99 GiB físicos de la tarjeta** y
-  aun así el programa no reventó; el pico medido por el driver (4,96 GB) fue
-  menor. La fórmula de pico calculado es una cota superior conservadora del
-  peor caso simultáneo, no la ocupación real medida — en WSL2 el driver puede
-  además desbordar a RAM del sistema bajo WDDM antes de fallar. Conclusión
-  práctica: el margen real hasta el OOM es mayor que lo que "Pico calculado"
-  sugiere.
+- **El nivel 13 con SPLIT=1 sí desborda a RAM del sistema, confirmado
+  directamente.** Se agregó `gpuRequireBudget()`: antes de cada reserva
+  grande consulta `cudaMemGetInfo` en el instante real y compara contra el
+  total físico (6,00 GB), terminando el programa con `exit(1)` si no alcanza,
+  en vez de dejar que el driver de Windows (WDDM) desborde en silencio a RAM
+  del sistema. Al aplicarlo, **el nivel 13 dispara el guardián en la poda del
+  primer subárbol de la primera pasada**:
+
+  ```
+  Error: poda (salida) necesita 2.78 GB adicionales, pero solo hay 1.47 GB
+  libres de 6.00 GB de VRAM fisica.
+  ```
+
+  Log completo en `raw/08_nivel_13_con_guardian.log`.
+
+  Esto **corrige dos afirmaciones anteriores de este mismo documento**, en
+  direcciones opuestas — vale la pena dejar registrado el error de
+  razonamiento, no solo el resultado final:
+  1. Primero se especuló (sin verificar) que hubo desborde a RAM bajo WDDM.
+  2. Después se corrigió eso citando que "Pico medido por el driver" (4,96
+     GB) quedó bajo los 6,00 GB, concluyendo que probablemente NO hubo
+     desborde — esa conclusión también era incorrecta.
+
+  La razón de la contradicción: `gpuSampleVram()` solo muestrea en puntos
+  fijos del código (después de generar la salida del refinamiento, después
+  de reservar el buffer de poda), no en el instante exacto de mayor uso. El
+  pico real ocurre un momento antes, cuando coexisten el arreglo recién
+  refinado y el intento de reservar el buffer de poda — instante que
+  `gpuRequireBudget()` sí intercepta porque corre justo ahí, no en un punto
+  de muestreo aparte. **Conclusión que sí queda firme, verificada
+  directamente**: el nivel 13 con SPLIT=1 no vive completo en VRAM física;
+  las corridas "exitosas" anteriores (usuario y reproducción) dependían de
+  desborde a RAM del sistema sin que el programa lo reportara. Bajo la
+  política de que esto debe tratarse como error, **el nivel 13 con SPLIT=1 no
+  se puede dar por logrado tal cual está** — hace falta `SPLIT=2` o más para
+  que quepa en VRAM real, y `SPLIT=2` todavía no converge correctamente (ver
+  más abajo).
 - **El tiempo por subárbol varía fuerte** (17,3 s a 110,4 s en la pasada 1):
   el cortex no está centrado en el cubo raíz, así que unos octantes cargan
   mucha más superficie de la corteza que otros. Es el desbalance de 1,5–2×
