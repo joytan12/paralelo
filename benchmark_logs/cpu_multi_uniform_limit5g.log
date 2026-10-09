@@ -1,0 +1,99 @@
+=== Octree CPU (multi-hilo OpenMP) — Refinamiento con Malla ===
+Hilos disponibles: 20
+Niveles de refinamiento: 20
+Modo de refinamiento   : uniforme (todas las hojas)
+Modelo: /home/joytan/paralelo/cortex.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/cortex.mdl'
+      Vértices : 3152
+      Triángulos: 6300
+      BBox min  : (50.25, 59.38, 19.86)
+      BBox max  : (219.65, 209.99, 153.19)
+      Centro    : (134.95, 134.69, 86.52)
+      Half-size : 88.94
+
+Cubo raíz:
+  Centro    : (134.95, 134.69, 86.52)
+  Half-size : 88.94
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación:     Dentro: 0 | Borde: 8 | Fuera: 0
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  RAM etapa: pico 0.11 MB | tiempo 0.046 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación:     Dentro: 1 | Borde: 54 | Fuera: 9
+  Poda: 64 -> 55 hojas  (eliminados: 9)
+  RAM etapa: pico 0.11 MB | tiempo 0.020 s
+
+--- Etapa 3 ---
+  Padres refinados: 55 | Hojas: 55 -> 440
+  Clasificación:     Dentro: 57 | Borde: 202 | Fuera: 181
+  Poda: 440 -> 259 hojas  (eliminados: 181)
+  RAM etapa: pico 0.13 MB | tiempo 0.020 s
+
+--- Etapa 4 ---
+  Padres refinados: 259 | Hojas: 259 -> 2072
+  Clasificación:     Dentro: 724 | Borde: 848 | Fuera: 500
+  Poda: 2072 -> 1572 hojas  (eliminados: 500)
+  RAM etapa: pico 0.21 MB | tiempo 0.034 s
+
+--- Etapa 5 ---
+  Padres refinados: 1572 | Hojas: 1572 -> 12576
+  Clasificación:     Dentro: 7174 | Borde: 3472 | Fuera: 1930
+  Poda: 12576 -> 10646 hojas  (eliminados: 1930)
+  RAM etapa: pico 0.74 MB | tiempo 0.107 s
+
+--- Etapa 6 ---
+  Padres refinados: 10646 | Hojas: 10646 -> 85168
+  Clasificación:     Dentro: 64026 | Borde: 13993 | Fuera: 7149
+  Poda: 85168 -> 78019 hojas  (eliminados: 7149)
+  RAM etapa: pico 4.49 MB | tiempo 0.646 s
+
+--- Etapa 7 ---
+  Padres refinados: 78019 | Hojas: 78019 -> 624152
+  Clasificación:     Dentro: 539686 | Borde: 56382 | Fuera: 28084
+  Poda: 624152 -> 596068 hojas  (eliminados: 28084)
+  RAM etapa: pico 32.80 MB | tiempo 5.071 s
+
+--- Etapa 8 ---
+  Padres refinados: 596068 | Hojas: 596068 -> 4768544
+  Clasificación:     Dentro: 4428108 | Borde: 225710 | Fuera: 114726
+  Poda: 4768544 -> 4653818 hojas  (eliminados: 114726)
+  RAM etapa: pico 252.15 MB | tiempo 40.716 s
+
+--- Etapa 9 ---
+  Padres refinados: 4653818 | Hojas: 4653818 -> 37230544
+  Clasificación:     Dentro: 35872116 | Borde: 903502 | Fuera: 454926
+  Poda: 37230544 -> 36775618 hojas  (eliminados: 454926)
+  RAM etapa: pico 1978.02 MB | tiempo 330.775 s
+
+--- Etapa 10 ---
+timeout: the monitored command dumped core
+Command terminated by signal 11
+	Command being timed: "timeout --foreground --signal=INT --kill-after=5 600 stdbuf -oL /home/joytan/paralelo/cpu_multi/octree_cpu_mt 20 /home/joytan/paralelo/cortex.mdl --uniform"
+	User time (seconds): 7496.30
+	System time (seconds): 20.86
+	Percent of CPU this job got: 1915%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:32.47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2028396
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 581013
+	Voluntary context switches: 157257
+	Involuntary context switches: 162937
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+EXIT_STATUS=139

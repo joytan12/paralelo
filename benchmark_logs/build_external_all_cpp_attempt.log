@@ -1,0 +1,354 @@
+external/MixedOcTree/src/OPoint3D.cpp:24:9: error: redefinition of ‘Clobscode::Point3D::Point3D()’
+   24 |         Point3D::Point3D(){
+      |         ^~~~~~~
+In file included from external/MixedOcTree/src/OPoint3D.cpp:20:
+external/MixedOcTree/src/Point3D.h:42:9: note: ‘Clobscode::Point3D::Point3D()’ previously defined here
+   42 |         Point3D() : x(0.0),y(0.0),z(0.0) {}
+      |         ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:28:9: error: redefinition of ‘Clobscode::Point3D::Point3D(double, double, double)’
+   28 |         Point3D::Point3D(double x, double y, double z){
+      |         ^~~~~~~
+external/MixedOcTree/src/Point3D.h:44:9: note: ‘Clobscode::Point3D::Point3D(double, double, double)’ previously defined here
+   44 |         Point3D(double x, double y, double z) : x(x),y(y),z(z) {}
+      |         ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:34:9: error: redefinition of ‘Clobscode::Point3D::~Point3D()’
+   34 |         Point3D::~Point3D(){
+      |         ^~~~~~~
+external/MixedOcTree/src/Point3D.h:46:17: note: ‘virtual Clobscode::Point3D::~Point3D()’ previously defined here
+   46 |         virtual ~Point3D() {}
+      |                 ^
+external/MixedOcTree/src/OPoint3D.cpp:38:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::cross(Clobscode::Point3D)’
+   38 |         Point3D Point3D::cross(Point3D p){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:191:20: note: candidate is: ‘virtual Clobscode::Point3D Clobscode::Point3D::cross(const Clobscode::Point3D&) const’
+  191 |     inline Point3D Point3D::cross(const Point3D &p) const {
+      |                    ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:47:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::operator^(Clobscode::Point3D)’
+   47 |         Point3D Point3D::operator^(Point3D p){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:199:24: note: candidate is: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator^(const Clobscode::Point3D&) const’
+  199 |         inline Point3D Point3D::operator^(const Point3D &p) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:55:16: error: no declaration matches ‘double Clobscode::Point3D::dot(Clobscode::Point3D)’
+   55 |         double Point3D::dot(Point3D p){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:207:19: note: candidate is: ‘virtual double Clobscode::Point3D::dot(const Clobscode::Point3D&) const’
+  207 |     inline double Point3D::dot(const Point3D &p) const{
+      |                   ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:59:16: error: no declaration matches ‘double Clobscode::Point3D::operator*(Clobscode::Point3D)’
+   59 |         double Point3D::operator*(Point3D p){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:257:24: note: candidates are: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator*(double) const’
+  257 |         inline Point3D Point3D::operator*(double mul) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:211:23: note:                 ‘virtual double Clobscode::Point3D::operator*(const Clobscode::Point3D&) const’
+  211 |         inline double Point3D::operator*(const Point3D &p) const {
+      |                       ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:63:16: error: no declaration matches ‘double Clobscode::Point3D::distance(Clobscode::Point3D)’
+   63 |         double Point3D::distance(Point3D p){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:182:19: note: candidate is: ‘virtual double Clobscode::Point3D::distance(const Clobscode::Point3D&) const’
+  182 |     inline double Point3D::distance(const Point3D &p) const {
+      |                   ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:67:16: error: no declaration matches ‘double Clobscode::Point3D::DistanceTo(const Clobscode::Point3D&)’
+   67 |         double Point3D::DistanceTo(const Point3D &p){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:186:19: note: candidate is: ‘virtual double Clobscode::Point3D::DistanceTo(const Clobscode::Point3D&) const’
+  186 |     inline double Point3D::DistanceTo(const Point3D &p) const{
+      |                   ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:71:16: error: redefinition of ‘double Clobscode::Point3D::DistanceTo(const Clobscode::Point3D&) const’
+   71 |         double Point3D::DistanceTo(const Point3D &p) const{
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:186:19: note: ‘virtual double Clobscode::Point3D::DistanceTo(const Clobscode::Point3D&) const’ previously defined here
+  186 |     inline double Point3D::DistanceTo(const Point3D &p) const{
+      |                   ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:75:14: error: no declaration matches ‘void Clobscode::Point3D::normalize()’
+   75 |         void Point3D::normalize(){
+      |              ^~~~~~~
+external/MixedOcTree/src/Point3D.h:165:21: note: candidate is: ‘virtual Clobscode::Point3D& Clobscode::Point3D::normalize()’
+  165 |     inline Point3D& Point3D::normalize(){
+      |                     ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:86:16: error: no declaration matches ‘double Clobscode::Point3D::Norm()’
+   86 |         double Point3D::Norm(){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:177:19: note: candidate is: ‘virtual double Clobscode::Point3D::Norm() const’
+  177 |     inline double Point3D::Norm() const {
+      |                   ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:90:16: error: no declaration matches ‘std::string Clobscode::Point3D::print()’
+   90 |         string Point3D::print(){
+      |                ^~~~~~~
+external/MixedOcTree/src/Point3D.h:111:24: note: candidate is: ‘virtual std::string Clobscode::Point3D::print() const’
+  111 |         virtual string print() const;
+      |                        ^~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:127:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::operator-()’
+  127 |         Point3D Point3D::operator-(){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:223:24: note: candidates are: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator-() const’
+  223 |         inline Point3D Point3D::operator-() const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:219:24: note:                 ‘virtual Clobscode::Point3D Clobscode::Point3D::operator-(const Clobscode::Point3D&) const’
+  219 |         inline Point3D Point3D::operator-(const Point3D &p) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:135:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::operator-(Clobscode::Point3D)’
+  135 |         Point3D Point3D::operator-(Point3D p2){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:223:24: note: candidates are: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator-() const’
+  223 |         inline Point3D Point3D::operator-() const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:219:24: note:                 ‘virtual Clobscode::Point3D Clobscode::Point3D::operator-(const Clobscode::Point3D&) const’
+  219 |         inline Point3D Point3D::operator-(const Point3D &p) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:143:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::operator+(Clobscode::Point3D)’
+  143 |         Point3D Point3D::operator+(Point3D p2){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:227:24: note: candidate is: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator+(const Clobscode::Point3D&) const’
+  227 |         inline Point3D Point3D::operator+(const Point3D &p) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:151:14: error: no declaration matches ‘void Clobscode::Point3D::operator/=(double)’
+  151 |         void Point3D::operator/=(double div){
+      |              ^~~~~~~
+external/MixedOcTree/src/Point3D.h:250:27: note: candidate is: ‘virtual const Clobscode::Point3D& Clobscode::Point3D::operator/=(double)’
+  250 |     inline const Point3D &Point3D::operator/=(double div){
+      |                           ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:163:14: error: no declaration matches ‘void Clobscode::Point3D::operator=(Clobscode::Point3D)’
+  163 |         void Point3D::operator=(Point3D p){
+      |              ^~~~~~~
+external/MixedOcTree/src/Point3D.h:293:21: note: candidate is: ‘virtual Clobscode::Point3D& Clobscode::Point3D::operator=(const Clobscode::Point3D&)’
+  293 |     inline Point3D& Point3D::operator=(const Point3D& p) {
+      |                     ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:169:17: error: redefinition of ‘double& Clobscode::Point3D::operator[](int)’
+  169 |         double &Point3D::operator[](int pos){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:277:20: note: ‘virtual double& Clobscode::Point3D::operator[](int)’ previously defined here
+  277 |     inline double &Point3D::operator[](int pos){
+      |                    ^~~~~~~
+external/MixedOcTree/src/OPoint3D.cpp:177:17: error: no declaration matches ‘Clobscode::Point3D Clobscode::Point3D::operator*(double)’
+  177 |         Point3D Point3D::operator*(double escalar){
+      |                 ^~~~~~~
+external/MixedOcTree/src/Point3D.h:257:24: note: candidates are: ‘virtual Clobscode::Point3D Clobscode::Point3D::operator*(double) const’
+  257 |         inline Point3D Point3D::operator*(double mul) const {
+      |                        ^~~~~~~
+external/MixedOcTree/src/Point3D.h:211:23: note:                 ‘virtual double Clobscode::Point3D::operator*(const Clobscode::Point3D&) const’
+  211 |         inline double Point3D::operator*(const Point3D &p) const {
+      |                       ^~~~~~~
+external/MixedOcTree/src/Point3D.h:39:15: note: ‘class Clobscode::Point3D’ defined here
+   39 |         class Point3D{
+      |               ^~~~~~~
+external/MixedOcTree/src/Prism.cpp:20:10: fatal error: stdafx.h: No such file or directory
+   20 | #include "stdafx.h"
+      |          ^~~~~~~~~~
+compilation terminated.
+In file included from external/MixedOcTree/src/Mesher.h:28,
+                 from external/MixedOcTree/src/Main.cpp:20:
+external/MixedOcTree/src/Services.h: In static member function ‘static bool Clobscode::Services::ReadMdlMesh(std::string, std::vector<Clobscode::TriMesh>&)’:
+external/MixedOcTree/src/Services.h:266:36: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  266 |                         std::fscanf(file,"%u",&cant);
+      |                         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:274:44: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  274 |                                 std::fscanf(file,"%s",word);
+      |                                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:276:44: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  276 |                                 std::fscanf(file,"%s",word);
+      |                                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:278:44: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  278 |                                 std::fscanf(file,"%s",word);
+      |                                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:295:52: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  295 |                                         std::fscanf(file,"%u",&cant);
+      |                                         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:306:52: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  306 |                                         std::fscanf(file,"%u",&fpts[j]);
+      |                                         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:310:52: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  310 |                                         std::fscanf(file,"%u",&dust);
+      |                                         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h: In static member function ‘static bool Clobscode::Services::ReadOffMesh(std::string, std::vector<Clobscode::TriMesh>&)’:
+external/MixedOcTree/src/Services.h:189:19: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  189 |             fscanf(file,"%u",&np);
+      |             ~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:191:23: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  191 |                 fscanf(file, "%*[^\n]");
+      |                 ~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:192:23: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  192 |                 fscanf(file,"%u",&np);
+      |                 ~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:195:19: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  195 |             fscanf(file,"%u",&nf);
+      |             ~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:199:23: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  199 |                 fscanf(file,"%s",word);
+      |                 ~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:206:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  206 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:208:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  208 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:210:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  210 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:214:22: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  214 |                 fgets(word,256,file);
+      |                 ~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:221:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  221 |                 std::fscanf(file,"%u",&nfp);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:225:32: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  225 |                     std::fscanf(file,"%u",&fpts[j]);
+      |                     ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:229:22: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  229 |                 fgets(word,256,file);
+      |                 ~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h: In static member function ‘static short unsigned int Clobscode::Services::readRefinementRegions(std::string, std::__cxx11::list<Clobscode::RefinementRegion*>&)’:
+external/MixedOcTree/src/Services.h:89:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+   89 |             std::fscanf(file,"%i",&cant);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:97:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+   97 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:99:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+   99 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:101:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  101 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:106:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  106 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:108:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  108 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:110:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  110 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:116:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  116 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h: In static member function ‘static bool Clobscode::Services::ReadOctreeMesh(std::string, std::vector<Clobscode::MeshPoint>&, std::vector<Clobscode::Octant>&, std::map<Clobscode::OctreeEdge, Clobscode::EdgeInfo>&, std::vector<unsigned int>&, Clobscode::GeometricTransform&, short unsigned int&, short unsigned int&)’:
+external/MixedOcTree/src/Services.h:382:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  382 |             std::fscanf(file,"%u",&np);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:383:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  383 |             std::fscanf(file,"%u",&ne);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:384:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  384 |             std::fscanf(file,"%u",&no);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:390:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  390 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:392:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  392 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:394:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  394 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:402:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  402 |                 std::fscanf(file,"%u",&e1);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:403:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  403 |                 std::fscanf(file,"%u",&e2);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:404:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  404 |                 std::fscanf(file,"%u",&e3);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:420:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  420 |                 std::fscanf(file,"%s",word);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:432:32: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  432 |                     std::fscanf(file,"%u",&ni);
+      |                     ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:435:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  435 |                 std::fscanf(file,"%u",&orl);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:436:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  436 |                 std::fscanf(file,"%u",&nof);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:438:32: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  438 |                     std::fscanf(file,"%u",&ni);
+      |                     ~~~~~~~~~~~^~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:454:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  454 |             std::fscanf(file,"%s %s",word,word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:455:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  455 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:457:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  457 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:459:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  459 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:462:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  462 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:464:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  464 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:466:24: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  466 |             std::fscanf(file,"%s",word);
+      |             ~~~~~~~~~~~^~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h:476:28: warning: ignoring return value of ‘int fscanf(FILE*, const char*, ...)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  476 |                 std::fscanf(file,"%u",&elem);
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+external/MixedOcTree/src/Services.h: In static member function ‘static bool Clobscode::Services::ReadOffMesh(std::string, std::vector<Clobscode::TriMesh>&)’:
+external/MixedOcTree/src/Services.h:166:23: warning: argument 1 null where non-null expected [-Wnonnull]
+  166 |                 fclose(file);
+      |                 ~~~~~~^~~~~~
+In file included from /usr/include/c++/13/cstdio:42,
+                 from /usr/include/c++/13/ext/string_conversions.h:45,
+                 from /usr/include/c++/13/bits/basic_string.h:4109,
+                 from /usr/include/c++/13/string:54,
+                 from /usr/include/c++/13/bits/locale_classes.h:40,
+                 from /usr/include/c++/13/bits/ios_base.h:41,
+                 from /usr/include/c++/13/ios:44,
+                 from /usr/include/c++/13/ostream:40,
+                 from /usr/include/c++/13/iostream:41,
+                 from external/MixedOcTree/src/Point3D.h:29,
+                 from external/MixedOcTree/src/TriMesh.h:23,
+                 from external/MixedOcTree/src/Mesher.h:23:
+/usr/include/stdio.h:184:12: note: in a call to function ‘int fclose(FILE*)’ declared ‘nonnull’
+  184 | extern int fclose (FILE *__stream) __nonnull ((1));
+      |            ^~~~~~

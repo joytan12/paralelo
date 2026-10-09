@@ -1,0 +1,40 @@
+  Starting generation/refinement
+    * generateGridMesh in 1 ms
+         * boundary max 20 in 0 ms
+         * level 0 (#24) in 5 ms - Balanced in 0 ms
+         * level 1 (#104) in 7 ms - Balanced in 0 ms
+         * level 2 (#478) in 13 ms - Balanced in 0 ms
+         * level 3 (#2083) in 32 ms - Balanced in 0 ms
+         * level 4 (#8741) in 103 ms - Balanced in 4 ms
+         * level 5 (#36063) in 389 ms - Balanced in 34 ms
+         * level 6 (#146179) in 1565 ms - Balanced in 189 ms
+         * level 7 (#588308) in 6224 ms - Balanced in 966 ms
+         * level 8 (#2361096) in 28159 ms - Balanced in 10371 ms
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+timeout: the monitored command dumped core
+Command terminated by signal 6
+	Command being timed: "timeout --foreground --signal=INT --kill-after=5 600 stdbuf -oL /tmp/paralelo_mixed_build/mesher_roi -d /home/joytan/paralelo/cortex.mdl -s 20 -u cortex_surface_limit5g -v"
+	User time (seconds): 53.16
+	System time (seconds): 8.50
+	Percent of CPU this job got: 45%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:14.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5138208
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 1414554
+	Voluntary context switches: 884827
+	Involuntary context switches: 78
+	Swaps: 0
+	File system inputs: 432
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+EXIT_STATUS=134

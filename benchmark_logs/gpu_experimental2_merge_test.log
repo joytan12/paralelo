@@ -1,0 +1,5 @@
+nvcc -arch=sm_89 -O2 -std=c++17 -Isrc -o merge_test tests/merge_test.cu src/merge.cu
+./merge_test
+CUDA error: CUDA driver version is insufficient for CUDA runtime version
+make: *** [Makefile:69: test] Error 1
+MAKE_EXIT_STATUS=2

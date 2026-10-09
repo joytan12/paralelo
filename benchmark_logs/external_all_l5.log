@@ -1,0 +1,48 @@
+  Starting generation/refinement
+    * generateGridMesh in 2 ms
+         * boundary max 5 in 0 ms
+         * level 0 (#24) in 5 ms - Balanced in 0 ms
+         * level 1 (#104) in 8 ms - Balanced in 0 ms
+         * level 2 (#526) in 12 ms - Balanced in 0 ms
+         * level 3 (#3347) in 34 ms - Balanced in 0 ms
+         * level 4 (#23605) in 130 ms - Balanced in 6 ms
+       * Refine Octant (#23605) in 199 ms
+       * Transition Patterns (#23605) in 8 ms
+    * generateOctreeMesh in 208 ms
+    * linkElementsToNodes in 3 ms
+    * detectInsideNodes in 38 ms
+    * ProjectCloseToBoundary in 20 ms
+    * RemoveOnSurface in 12 ms
+    * ApplySurfacePatterns in 20 ms
+    * RemoveOnSurface in 6 ms
+    * detectInsideNodes in 0 ms
+    * linkElementsToNodes in 5 ms
+    * ShrinkToBoundary in 13 ms
+  Generation done (#29329) in 430 ms
+  Write done in 32 ms
+  All done in 463 ms
+ Memory Usage (max resident memory) 53644 kB (52 MB)
+	Command being timed: "/tmp/paralelo_mixed_build/mesher_roi -d /home/joytan/paralelo/cortex.mdl -a 5 -u cortex_all_l5 -v"
+	User time (seconds): 0.47
+	System time (seconds): 0.02
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 53644
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 13633
+	Voluntary context switches: 0
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14040
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+EXIT_STATUS=0

@@ -1,0 +1,15 @@
+CUDA error en src/main.cu:158 — CUDA driver version is insufficient for CUDA runtime version
+=== Octree CUDA — Refinamiento con Malla ===
+Niveles de refinamiento: 1
+Modo de refinamiento   : adaptativo con balance 2:1
+Modelo: /home/joytan/paralelo/cortex.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/cortex.mdl'
+      Vértices : 3152
+      Triángulos: 6300
+      BBox min  : (50.25, 59.38, 19.86)
+      BBox max  : (219.65, 209.99, 153.19)
+      Centro    : (134.95, 134.69, 86.52)
+      Half-size : 88.94
+
+EXIT_STATUS=1

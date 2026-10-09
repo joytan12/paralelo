@@ -1,0 +1,8 @@
+mkdir -p build
+nvcc -arch=sm_89 -O2 -c src/main.cu -o build/main.o
+nvcc -arch=sm_89 -O2 -c src/octree.cu -o build/octree.o
+nvcc -arch=sm_89 -O2 -c src/geometry.cu -o build/geometry.o
+nvcc -arch=sm_89 -O2 -c src/mesh_classify.cu -o build/mesh_classify.o
+nvcc -arch=sm_89 -O2 -c src/stats.cu -o build/stats.o
+nvcc -arch=sm_89 -O2 -x cu -c src/vtk_writer.cpp -o build/vtk_writer.o
+nvcc -arch=sm_89 -O2 -o octree build/main.o build/octree.o build/geometry.o build/mesh_classify.o build/stats.o build/vtk_writer.o
