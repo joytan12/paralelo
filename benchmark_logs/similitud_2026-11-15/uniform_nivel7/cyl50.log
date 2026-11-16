@@ -1,0 +1,127 @@
+=== Octree CUDA — Refinamiento con Malla + compresión DAG ===
+Niveles de refinamiento: 7
+Modo de refinamiento   : uniforme (todas las hojas)
+Modelo: ../external/MixedOcTree/data/cyl50.mdl
+
+[MDL] Cargado '../external/MixedOcTree/data/cyl50.mdl'
+      Vértices : 102
+      Triángulos: 200
+      BBox min  : (-5.00, -4.99, -15.00)
+      BBox max  : (5.00, 4.99, 15.00)
+      Centro    : (0.00, 0.00, 0.00)
+      Half-size : 15.75
+
+Cubo raíz:
+  Centro    : (0.00, 0.00, 0.00)
+  Half-size : 15.75
+
+
+=== Resultado final: 169336 cubos sobrevivientes ===
+  Dentro: 146880 | Borde: 22456
+  Refinamiento uniforme produciría: 2097152 cubos (reducción: 91.9%)
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |    4.29 KB |     0.002
+     2 |         16 |          0 |         16 |     768 B |    9.54 KB |     0.001
+     3 |         96 |          0 |         96 |   4.50 KB |   15.54 KB |     0.001
+     4 |        512 |        168 |        344 |  24.00 KB |   75.54 KB |     0.001
+     5 |       3328 |       1800 |       1528 | 156.00 KB |  387.54 KB |     0.001
+     6 |      22816 |      17040 |       5776 |   1.04 MB |    2.44 MB |     0.001
+     7 |     169336 |     146880 |      22456 |   7.75 MB |   16.71 MB |     0.003
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 3.54 KB
+  Pico calculado del algoritmo  : 16.71 MB
+  Pico medido por el driver     : 24.00 MB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 0.009 s
+
+=== Compresión del octree final a DAG (GPU) ===
+Modo de espejo: activado (X, Y, Z)
+
+=== Compresión DAG por nivel ===
+ Nivel |      Hojas | Nodos lógicos | Únicos sin espejo | Únicos con espejo
+-------+------------+---------------+-------------------+------------------
+     0 |          0 |             1 |                 1 |                 1
+     1 |          0 |             8 |                 8 |                 1
+     2 |          0 |            16 |                12 |                 2
+     3 |          0 |            96 |                36 |                 6
+     4 |          0 |           512 |                63 |                12
+     5 |          0 |          3328 |                75 |                17
+     6 |          0 |         22816 |                39 |                12
+     7 |     169336 |             0 |                 0 |                 0
+-------+------------+---------------+-------------------+------------------
+ Total |     169336 |         26777 |               234 |                51
+
+=== Tamaño del octree final ===
+  Base: 169336 hojas x 48 B (arreglo plano)      : 7.75 MB
+  Árbol con punteros sin compartir (26777 nodos x 32 B) : 836.78 KB
+  DAG sin espejo (234 nodos únicos x 32 B)       : 7.31 KB  (1085.5x menor que base, 114.4x menor que árbol)
+  DAG con espejo (51 nodos únicos x 32 B)       : 1.59 KB  (4980.5x menor que base, 525.0x menor que árbol)
+  (los DAG no incluyen el slot raíz de 4 B)
+
+=== Construcción del DAG (separada del refinamiento) ===
+  DAG sin espejo : tiempo 0.018 s | pico calculado 4.10 MB | pico medido 18.00 MB
+  DAG con espejo : tiempo 0.013 s | pico calculado 4.10 MB | pico medido 18.00 MB
+  (pico calculado = buffers propios de la construcción, sin las hojas
+   de entrada ni el temporal interno de thrust; pico medido = driver,
+   incluye hojas de entrada y los DAG ya construidos)
+
+=== Similitud aproximada sobre el DAG con espejo (hito 4, solo medición) ===
+Distancia = slots distintos entre dos nodos, mínimo sobre las 8 reflexiones.
+
+M1. Hermano más parecido (hijos NODO distintos de un mismo padre)
+ Nivel |    Únicos | Sin herm. |       d=1 |       d=2 |       d=3 |      d>=4
+-------+-----------+-----------+-----------+-----------+-----------+----------
+     1 |         1 |         1 |         0 |         0 |         0 |         0
+     2 |         2 |         0 |         0 |         0 |         2 |         0
+     3 |         6 |         0 |         0 |         4 |         0 |         2
+     4 |        12 |         0 |         0 |         8 |         4 |         0
+     5 |        17 |         0 |         2 |         2 |         2 |        11
+     6 |        12 |         0 |         0 |         8 |         1 |         3
+
+M2. Vecino en todo el nivel (d1 = a distancia 1; d2 = a distancia 2 y no 1)
+ Nivel |    Únicos | d1 canón. | d2 canón. | d1 vistas | d2 vistas | Deltas cons.
+-------+-----------+-----------+-----------+-----------+-----------+-------------
+     0 |         1 |         0 |         0 |         0 |         0 |            0
+     1 |         1 |         0 |         0 |         0 |         0 |            0
+     2 |         2 |         0 |         0 |         0 |         0 |            0
+     3 |         6 |         0 |         4 |         0 |         4 |            0
+     4 |        12 |         0 |         8 |         0 |         8 |            0
+     5 |        17 |         2 |         8 |         2 |         8 |            1
+     6 |        12 |         4 |         8 |         4 |         8 |            1
+
+M4. Similitud geométrica con el hermano más parecido (rejilla 8x8x8, % de celdas distintas)
+ Nivel |    Únicos | Sin herm. |       0 % |    <=1 % |    <=5 % |   <=10 % |   <=25 % |    >25 %
+-------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+----------
+     1 |         1 |         1 |         0 |         0 |         0 |         0 |         0 |         0
+     2 |         2 |         0 |         2 |         0 |         0 |         0 |         0 |         0
+     3 |         6 |         0 |         0 |         0 |         4 |         0 |         2 |         0
+     4 |        12 |         0 |         0 |         0 |         0 |         6 |         2 |         4
+     5 |        17 |         0 |         0 |         0 |         4 |         0 |         9 |         4
+     6 |        12 |         0 |         0 |         0 |         0 |         0 |         8 |         4
+
+Tamaños estimados (nodo completo 32 B; delta de 1 slot 8 B; de 2 slots 16 B)
+  DAG actual (únicos x 32 B)                :      1.59 KB
+  M5 nodos de tamaño variable, sin deltas    :        930 B (57.0 %)
+  M3 delta, cota conservadora (1 posición)   :      1.55 KB (97.1 %)
+  M3 delta, cota optimista (formas canónicas):      1.02 KB (63.7 %)
+  M3 delta, cota optimista (8 vistas)        :      1.02 KB (63.7 %)
+  Costo de la medición: 0.045 s, VRAM adicional máxima 0 B
+
+=== Validaciones del DAG (todas en GPU) ===
+  Descompresión (sin espejo): 169336 hojas expandidas vs 169336 originales, 0 diferencias -> OK
+  Consultas dagLookup (sin espejo): 0 hojas incorrectas de 169336 -> OK
+  Descompresión (con espejo): 169336 hojas expandidas vs 169336 originales, 0 diferencias -> OK
+  Consultas dagLookup (con espejo): 0 hojas incorrectas de 169336 -> OK
+Validación del DAG: CORRECTA
+
+=== Resumen global (monolítico, --split-level 0) ===
+  Tiempo total (refinar + construir DAG con espejo): 0.022 s
+  Pico calculado: 16.71 MB | pico medido: 24.00 MB
+VTK: deshabilitado (--no-vtk)
+
+¡Refinamiento completado exitosamente!

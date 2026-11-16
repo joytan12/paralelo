@@ -1,0 +1,139 @@
+=== Octree CUDA — Refinamiento con Malla + compresión DAG ===
+Niveles de refinamiento: 9
+Modo de refinamiento   : adaptativo con balance 2:1
+Modelo: ../external/MixedOcTree/data/sc.mdl
+
+[MDL] Cargado '../external/MixedOcTree/data/sc.mdl'
+      Vértices : 2252
+      Triángulos: 4492
+      BBox min  : (-0.10, -21.06, -21.00)
+      BBox max  : (171.06, 21.03, 21.00)
+      Centro    : (85.48, -0.01, 0.00)
+      Half-size : 89.86
+
+Cubo raíz:
+  Centro    : (85.48, -0.01, 0.00)
+  Half-size : 89.86
+
+
+=== Resultado final: 176244 cubos sobrevivientes ===
+  Dentro: 80598 | Borde: 95646
+  Refinamiento uniforme produciría: 134217728 cubos (reducción: 99.9%)
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |   79.78 KB |     0.005
+     2 |         12 |          0 |         12 |     576 B |   85.03 KB |     0.002
+     3 |         20 |          0 |         20 |     960 B |   88.03 KB |     0.002
+     4 |        112 |          8 |        104 |   5.25 KB |   94.03 KB |     0.002
+     5 |        512 |        112 |        400 |  24.00 KB |  157.78 KB |     0.002
+     6 |       2210 |        674 |       1536 | 103.59 KB |  394.78 KB |     0.002
+     7 |       9680 |       3736 |       5944 | 453.75 KB |    1.34 MB |     0.003
+     8 |      44872 |      20914 |      23958 |   2.05 MB |    5.20 MB |     0.009
+     9 |     176244 |      80598 |      95646 |   8.07 MB |   21.16 MB |     0.027
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 79.03 KB
+  Pico calculado del algoritmo  : 21.16 MB
+  Pico medido por el driver     : 28.00 MB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 0.054 s
+
+=== Compresión del octree final a DAG (GPU) ===
+Modo de espejo: activado (X, Y, Z)
+
+=== Compresión DAG por nivel ===
+ Nivel |      Hojas | Nodos lógicos | Únicos sin espejo | Únicos con espejo
+-------+------------+---------------+-------------------+------------------
+     0 |          0 |             1 |                 1 |                 1
+     1 |          0 |             8 |                 8 |                 4
+     2 |          0 |            12 |                12 |                 6
+     3 |          0 |            20 |                20 |                10
+     4 |          0 |           112 |               109 |                52
+     5 |         16 |           552 |               423 |               202
+     6 |        876 |          2382 |              1316 |               644
+     7 |       6732 |          8258 |              2323 |              1042
+     8 |      31028 |         23958 |               123 |                36
+     9 |     137592 |             0 |                 0 |                 0
+-------+------------+---------------+-------------------+------------------
+ Total |     176244 |         35303 |              4335 |              1997
+
+=== Tamaño del octree final ===
+  Base: 176244 hojas x 48 B (arreglo plano)      : 8.07 MB
+  Árbol con punteros sin compartir (35303 nodos x 32 B) : 1.08 MB
+  DAG sin espejo (4335 nodos únicos x 32 B)       : 135.47 KB  (61.0x menor que base, 8.1x menor que árbol)
+  DAG con espejo (1997 nodos únicos x 32 B)       : 62.41 KB  (132.4x menor que base, 17.7x menor que árbol)
+  (los DAG no incluyen el slot raíz de 4 B)
+
+=== Construcción del DAG (separada del refinamiento) ===
+  DAG sin espejo : tiempo 0.017 s | pico calculado 3.54 MB | pico medido 18.00 MB
+  DAG con espejo : tiempo 0.012 s | pico calculado 3.54 MB | pico medido 18.00 MB
+  (pico calculado = buffers propios de la construcción, sin las hojas
+   de entrada ni el temporal interno de thrust; pico medido = driver,
+   incluye hojas de entrada y los DAG ya construidos)
+
+=== Similitud aproximada sobre el DAG con espejo (hito 4, solo medición) ===
+Distancia = slots distintos entre dos nodos, mínimo sobre las 8 reflexiones.
+
+M1. Hermano más parecido (hijos NODO distintos de un mismo padre)
+ Nivel |    Únicos | Sin herm. |       d=1 |       d=2 |       d=3 |      d>=4
+-------+-----------+-----------+-----------+-----------+-----------+----------
+     1 |         4 |         0 |         2 |         2 |         0 |         0
+     2 |         6 |         2 |         0 |         4 |         0 |         0
+     3 |        10 |         2 |         0 |         0 |         0 |         8
+     4 |        52 |         0 |         4 |        12 |         0 |        36
+     5 |       202 |         5 |        13 |        35 |        17 |       132
+     6 |       644 |        12 |        28 |        81 |        46 |       477
+     7 |      1042 |         8 |        83 |       141 |       237 |       573
+     8 |        36 |         0 |        34 |         1 |         1 |         0
+
+M2. Vecino en todo el nivel (d1 = a distancia 1; d2 = a distancia 2 y no 1)
+ Nivel |    Únicos | d1 canón. | d2 canón. | d1 vistas | d2 vistas | Deltas cons.
+-------+-----------+-----------+-----------+-----------+-----------+-------------
+     0 |         1 |         0 |         0 |         0 |         0 |            0
+     1 |         4 |         2 |         2 |         2 |         2 |            1
+     2 |         6 |         2 |         4 |         2 |         4 |            1
+     3 |        10 |         2 |         0 |         2 |         0 |            1
+     4 |        52 |         7 |        11 |         7 |        11 |            5
+     5 |       202 |        42 |        33 |        42 |        33 |           23
+     6 |       644 |       147 |       149 |       147 |       149 |           87
+     7 |      1042 |       900 |       128 |       912 |       118 |          202
+     8 |        36 |        36 |         0 |        36 |         0 |           10
+
+M4. Similitud geométrica con el hermano más parecido (rejilla 8x8x8, % de celdas distintas)
+ Nivel |    Únicos | Sin herm. |       0 % |    <=1 % |    <=5 % |   <=10 % |   <=25 % |    >25 %
+-------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+----------
+     1 |         4 |         0 |         4 |         0 |         0 |         0 |         0 |         0
+     2 |         6 |         2 |         0 |         0 |         0 |         4 |         0 |         0
+     3 |        10 |         2 |         0 |         0 |         0 |         0 |         4 |         4
+     4 |        52 |         0 |         0 |         3 |        12 |         6 |        14 |        17
+     5 |       202 |         5 |        22 |         7 |        24 |        31 |        49 |        64
+     6 |       644 |        12 |        11 |        35 |        70 |        95 |       249 |       172
+     7 |      1042 |         8 |         0 |         0 |       141 |       168 |       437 |       288
+     8 |        36 |         0 |         0 |         0 |         0 |         0 |        35 |         1
+
+Tamaños estimados (nodo completo 32 B; delta de 1 slot 8 B; de 2 slots 16 B)
+  DAG actual (únicos x 32 B)                :     62.41 KB
+  M5 nodos de tamaño variable, sin deltas    :     42.02 KB (67.3 %)
+  M3 delta, cota conservadora (1 posición)   :     54.67 KB (87.6 %)
+  M3 delta, cota optimista (formas canónicas):     30.62 KB (49.1 %)
+  M3 delta, cota optimista (8 vistas)        :     30.50 KB (48.9 %)
+  Costo de la medición: 0.073 s, VRAM adicional máxima 0 B
+
+=== Validaciones del DAG (todas en GPU) ===
+  Descompresión (sin espejo): 176244 hojas expandidas vs 176244 originales, 0 diferencias -> OK
+  Consultas dagLookup (sin espejo): 0 hojas incorrectas de 176244 -> OK
+  Balance 2:1 en el DAG (sin espejo): 0 violaciones en 176244 hojas -> OK
+  Descompresión (con espejo): 176244 hojas expandidas vs 176244 originales, 0 diferencias -> OK
+  Consultas dagLookup (con espejo): 0 hojas incorrectas de 176244 -> OK
+  Balance 2:1 en el DAG (con espejo): 0 violaciones en 176244 hojas -> OK
+Validación del DAG: CORRECTA
+
+=== Resumen global (monolítico, --split-level 0) ===
+  Tiempo total (refinar + construir DAG con espejo): 0.066 s
+  Pico calculado: 21.16 MB | pico medido: 28.00 MB
+VTK: deshabilitado (--no-vtk)
+
+¡Refinamiento completado exitosamente!
