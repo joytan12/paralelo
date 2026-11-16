@@ -1,0 +1,7 @@
+[MDL] Error: no se puede abrir 'cortex.mdl'
+Error cargando el modelo 'cortex.mdl'
+=== Octree CUDA — Refinamiento con Malla + compresión DAG ===
+Niveles de refinamiento: 9
+Modo de refinamiento   : adaptativo con balance 2:1
+Modelo: cortex.mdl
+
