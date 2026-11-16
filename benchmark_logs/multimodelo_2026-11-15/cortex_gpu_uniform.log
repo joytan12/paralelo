@@ -1,0 +1,73 @@
+=== Octree CUDA — Refinamiento con Malla ===
+Niveles de refinamiento: 10
+Modo de refinamiento   : uniforme (todas las hojas)
+Modelo: /home/joytan/paralelo/external/MixedOcTree/data/cortex.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/external/MixedOcTree/data/cortex.mdl'
+      Vértices : 3152
+      Triángulos: 6300
+      BBox min  : (50.25, 59.38, 19.86)
+      BBox max  : (219.65, 209.99, 153.19)
+      Centro    : (134.95, 134.69, 86.52)
+      Half-size : 88.94
+
+Cubo raíz:
+  Centro    : (134.95, 134.69, 86.52)
+  Half-size : 88.94
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación: ejecutada en GPU
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  VRAM etapa: pico 0.11 MB | tiempo 0.004 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación: ejecutada en GPU
+  Poda: 64 -> 55 hojas  (eliminados: 9)
+  VRAM etapa: pico 0.11 MB | tiempo 0.003 s
+
+--- Etapa 3 ---
+  Padres refinados: 55 | Hojas: 55 -> 440
+  Clasificación: ejecutada en GPU
+  Poda: 440 -> 259 hojas  (eliminados: 181)
+  VRAM etapa: pico 0.15 MB | tiempo 0.003 s
+
+--- Etapa 4 ---
+  Padres refinados: 259 | Hojas: 259 -> 2072
+  Clasificación: ejecutada en GPU
+  Poda: 2072 -> 1572 hojas  (eliminados: 500)
+  VRAM etapa: pico 0.30 MB | tiempo 0.003 s
+
+--- Etapa 5 ---
+  Padres refinados: 1572 | Hojas: 1572 -> 12576
+  Clasificación: ejecutada en GPU
+  Poda: 12576 -> 10646 hojas  (eliminados: 1930)
+  VRAM etapa: pico 1.26 MB | tiempo 0.005 s
+
+--- Etapa 6 ---
+  Padres refinados: 10646 | Hojas: 10646 -> 85168
+  Clasificación: ejecutada en GPU
+  Poda: 85168 -> 78019 hojas  (eliminados: 7149)
+  VRAM etapa: pico 7.91 MB | tiempo 0.020 s
+
+--- Etapa 7 ---
+  Padres refinados: 78019 | Hojas: 78019 -> 624152
+  Clasificación: ejecutada en GPU
+  Poda: 624152 -> 596068 hojas  (eliminados: 28084)
+  VRAM etapa: pico 57.25 MB | tiempo 0.126 s
+
+--- Etapa 8 ---
+  Padres refinados: 596068 | Hojas: 596068 -> 4768544
+  Clasificación: ejecutada en GPU
+  Poda: 4768544 -> 4653818 hojas  (eliminados: 114726)
+  VRAM etapa: pico 436.68 MB | tiempo 0.773 s
+
+--- Etapa 9 ---
+  Padres refinados: 4653818 | Hojas: 4653818 -> 37230544
+  Clasificación: ejecutada en GPU
+  Poda: 37230544 -> 36775635 hojas  (eliminados: 454909)
+  VRAM etapa: pico 3408.67 MB | tiempo 5.641 s
+
+--- Etapa 10 ---
+CUDA error en src/octree.cu:293 — out of memory

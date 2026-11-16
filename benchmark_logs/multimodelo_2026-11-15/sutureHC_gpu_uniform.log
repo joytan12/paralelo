@@ -1,0 +1,106 @@
+=== Octree CUDA — Refinamiento con Malla ===
+Niveles de refinamiento: 10
+Modo de refinamiento   : uniforme (todas las hojas)
+Modelo: /home/joytan/paralelo/external/MixedOcTree/data/sutureHC.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/external/MixedOcTree/data/sutureHC.mdl'
+      Vértices : 2446
+      Triángulos: 4888
+      BBox min  : (0.00, -0.63, -0.63)
+      BBox max  : (10.00, 0.63, 0.63)
+      Centro    : (5.00, 0.00, 0.00)
+      Half-size : 5.25
+
+Cubo raíz:
+  Centro    : (5.00, 0.00, 0.00)
+  Half-size : 5.25
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación: ejecutada en GPU
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  VRAM etapa: pico 0.08 MB | tiempo 0.002 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación: ejecutada en GPU
+  Poda: 64 -> 16 hojas  (eliminados: 48)
+  VRAM etapa: pico 0.09 MB | tiempo 0.002 s
+
+--- Etapa 3 ---
+  Padres refinados: 16 | Hojas: 16 -> 128
+  Clasificación: ejecutada en GPU
+  Poda: 128 -> 32 hojas  (eliminados: 96)
+  VRAM etapa: pico 0.10 MB | tiempo 0.002 s
+
+--- Etapa 4 ---
+  Padres refinados: 32 | Hojas: 32 -> 256
+  Clasificación: ejecutada en GPU
+  Poda: 256 -> 64 hojas  (eliminados: 192)
+  VRAM etapa: pico 0.11 MB | tiempo 0.002 s
+
+--- Etapa 5 ---
+  Padres refinados: 64 | Hojas: 64 -> 512
+  Clasificación: ejecutada en GPU
+  Poda: 512 -> 208 hojas  (eliminados: 304)
+  VRAM etapa: pico 0.13 MB | tiempo 0.002 s
+
+--- Etapa 6 ---
+  Padres refinados: 208 | Hojas: 208 -> 1664
+  Clasificación: ejecutada en GPU
+  Poda: 1664 -> 1196 hojas  (eliminados: 468)
+  VRAM etapa: pico 0.24 MB | tiempo 0.002 s
+
+--- Etapa 7 ---
+  Padres refinados: 1196 | Hojas: 1196 -> 9568
+  Clasificación: ejecutada en GPU
+  Poda: 9568 -> 6592 hojas  (eliminados: 2976)
+  VRAM etapa: pico 0.96 MB | tiempo 0.003 s
+
+--- Etapa 8 ---
+  Padres refinados: 6592 | Hojas: 6592 -> 52736
+  Clasificación: ejecutada en GPU
+  Poda: 52736 -> 38618 hojas  (eliminados: 14118)
+  VRAM etapa: pico 4.91 MB | tiempo 0.008 s
+
+--- Etapa 9 ---
+  Padres refinados: 38618 | Hojas: 38618 -> 308944
+  Clasificación: ejecutada en GPU
+  Poda: 308944 -> 263179 hojas  (eliminados: 45765)
+  VRAM etapa: pico 28.37 MB | tiempo 0.045 s
+
+--- Etapa 10 ---
+  Padres refinados: 263179 | Hojas: 263179 -> 2105432
+  Clasificación: ejecutada en GPU
+  Poda: 2105432 -> 1964894 hojas  (eliminados: 140538)
+  VRAM etapa: pico 192.84 MB | tiempo 0.472 s
+
+
+=== Resultado final: 1964894 cubos sobrevivientes ===
+  Dentro: 1666857 | Borde: 298037
+  Refinamiento uniforme produciría: 1073741824 cubos (reducción: 99.8%)
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |   86.70 KB |     0.002
+     2 |         16 |          0 |         16 |     768 B |   91.95 KB |     0.002
+     3 |         32 |          0 |         32 |   1.50 KB |   97.95 KB |     0.002
+     4 |         64 |          0 |         64 |   3.00 KB |  109.95 KB |     0.002
+     5 |        208 |          0 |        208 |   9.75 KB |  133.95 KB |     0.002
+     6 |       1196 |         28 |       1168 |  56.06 KB |  241.95 KB |     0.002
+     7 |       6592 |       1782 |       4810 | 309.00 KB |  982.95 KB |     0.003
+     8 |      38618 |      20346 |      18272 |   1.77 MB |    4.91 MB |     0.008
+     9 |     263179 |     188043 |      75136 |  12.05 MB |   28.37 MB |     0.045
+    10 |    1964894 |    1666857 |     298037 |  89.95 MB |  192.84 MB |     0.472
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 85.95 KB
+  Pico calculado del algoritmo  : 192.84 MB
+  Pico medido por el driver     : 200.00 MB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 0.539 s
+VTK binario exportado: output/octree_uniform_level_10.vtk  (1964894 cubos, 15719152 puntos)
+
+¡Refinamiento completado exitosamente!

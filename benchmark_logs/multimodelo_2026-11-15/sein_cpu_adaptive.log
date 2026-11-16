@@ -1,0 +1,73 @@
+=== Octree CPU (multi-hilo OpenMP) — Refinamiento con Malla ===
+Hilos disponibles: 20
+Niveles de refinamiento: 10
+Modo de refinamiento   : adaptativo con balance 2:1
+Modelo: /home/joytan/paralelo/external/MixedOcTree/data/sein.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/external/MixedOcTree/data/sein.mdl'
+      Vértices : 1248
+      Triángulos: 2492
+      BBox min  : (-93.28, -106.93, -62.84)
+      BBox max  : (65.79, 99.99, 42.38)
+      Centro    : (-13.75, -3.47, -10.23)
+      Half-size : 108.63
+
+Cubo raíz:
+  Centro    : (-13.75, -3.47, -10.23)
+  Half-size : 108.63
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación:     Dentro: 0 | Borde: 8 | Fuera: 0
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  RAM etapa: pico 0.04 MB | tiempo 0.000 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación:     Dentro: 0 | Borde: 28 | Fuera: 36
+  Poda: 64 -> 28 hojas  (eliminados: 36)
+  RAM etapa: pico 0.05 MB | tiempo 0.004 s
+
+--- Etapa 3 ---
+  Padres refinados: 28 | Hojas: 28 -> 224
+  Clasificación:     Dentro: 5 | Borde: 135 | Fuera: 84
+  Poda: 224 -> 140 hojas  (eliminados: 84)
+  RAM etapa: pico 0.05 MB | tiempo 0.002 s
+
+--- Etapa 4 ---
+  Padres refinados: 135 | Hojas: 140 -> 1085
+  Clasificación:     Dentro: 123 | Borde: 549 | Fuera: 413
+  Poda: 1085 -> 672 hojas  (eliminados: 413)
+  RAM etapa: pico 0.09 MB | tiempo 0.004 s
+
+--- Etapa 5 ---
+  Padres refinados: 554 | Hojas: 672 -> 4550
+  Clasificación:     Dentro: 999 | Borde: 2227 | Fuera: 1324
+  Poda: 4550 -> 3226 hojas  (eliminados: 1324)
+  RAM etapa: pico 0.26 MB | tiempo 0.008 s
+
+--- Etapa 6 ---
+  Padres refinados: 2328 | Hojas: 3226 -> 19522
+  Clasificación:     Dentro: 5733 | Borde: 8895 | Fuera: 4894
+  Poda: 19522 -> 14628 hojas  (eliminados: 4894)
+  RAM etapa: pico 0.97 MB | tiempo 0.054 s
+
+--- Etapa 7 ---
+  Padres refinados: 9741 | Hojas: 14628 -> 82815
+  Clasificación:     Dentro: 28969 | Borde: 35389 | Fuera: 18457
+  Poda: 82815 -> 64358 hojas  (eliminados: 18457)
+  RAM etapa: pico 4.04 MB | tiempo 1.041 s
+
+--- Etapa 8 ---
+  Padres refinados: 39574 | Hojas: 64358 -> 341376
+  Clasificación:     Dentro: 127602 | Borde: 141688 | Fuera: 72086
+  Poda: 341376 -> 269290 hojas  (eliminados: 72086)
+  RAM etapa: pico 16.62 MB | tiempo 27.268 s
+
+--- Etapa 9 ---
+  Padres refinados: 160363 | Hojas: 269290 -> 1391831
+  Clasificación:     Dentro: 538085 | Borde: 566931 | Fuera: 286815
+  Poda: 1391831 -> 1105016 hojas  (eliminados: 286815)
+  RAM etapa: pico 67.81 MB | tiempo 465.118 s
+
+--- Etapa 10 ---
