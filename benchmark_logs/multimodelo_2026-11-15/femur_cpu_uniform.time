@@ -1,0 +1,23 @@
+	Command being timed: "timeout 3600 stdbuf -oL -eL /home/joytan/paralelo/cpu_multi/octree_cpu_mt 10 /home/joytan/paralelo/external/MixedOcTree/data/femur.mdl --uniform"
+	User time (seconds): 1894.05
+	System time (seconds): 11.35
+	Percent of CPU this job got: 1167%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:43.19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1056904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 303194
+	Voluntary context switches: 135
+	Involuntary context switches: 11720
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 12463408
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

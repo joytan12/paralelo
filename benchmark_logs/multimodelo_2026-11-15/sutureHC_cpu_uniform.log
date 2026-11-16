@@ -1,0 +1,106 @@
+=== Octree CPU (multi-hilo OpenMP) — Refinamiento con Malla ===
+Hilos disponibles: 20
+Niveles de refinamiento: 10
+Modo de refinamiento   : uniforme (todas las hojas)
+Modelo: /home/joytan/paralelo/external/MixedOcTree/data/sutureHC.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/external/MixedOcTree/data/sutureHC.mdl'
+      Vértices : 2446
+      Triángulos: 4888
+      BBox min  : (0.00, -0.63, -0.63)
+      BBox max  : (10.00, 0.63, 0.63)
+      Centro    : (5.00, 0.00, 0.00)
+      Half-size : 5.25
+
+Cubo raíz:
+  Centro    : (5.00, 0.00, 0.00)
+  Half-size : 5.25
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación:     Dentro: 0 | Borde: 8 | Fuera: 0
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  RAM etapa: pico 0.08 MB | tiempo 0.018 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación:     Dentro: 0 | Borde: 16 | Fuera: 48
+  Poda: 64 -> 16 hojas  (eliminados: 48)
+  RAM etapa: pico 0.09 MB | tiempo 0.027 s
+
+--- Etapa 3 ---
+  Padres refinados: 16 | Hojas: 16 -> 128
+  Clasificación:     Dentro: 0 | Borde: 32 | Fuera: 96
+  Poda: 128 -> 32 hojas  (eliminados: 96)
+  RAM etapa: pico 0.09 MB | tiempo 0.017 s
+
+--- Etapa 4 ---
+  Padres refinados: 32 | Hojas: 32 -> 256
+  Clasificación:     Dentro: 0 | Borde: 64 | Fuera: 192
+  Poda: 256 -> 64 hojas  (eliminados: 192)
+  RAM etapa: pico 0.09 MB | tiempo 0.019 s
+
+--- Etapa 5 ---
+  Padres refinados: 64 | Hojas: 64 -> 512
+  Clasificación:     Dentro: 0 | Borde: 208 | Fuera: 304
+  Poda: 512 -> 208 hojas  (eliminados: 304)
+  RAM etapa: pico 0.10 MB | tiempo 0.018 s
+
+--- Etapa 6 ---
+  Padres refinados: 208 | Hojas: 208 -> 1664
+  Clasificación:     Dentro: 28 | Borde: 1168 | Fuera: 468
+  Poda: 1664 -> 1196 hojas  (eliminados: 468)
+  RAM etapa: pico 0.16 MB | tiempo 0.016 s
+
+--- Etapa 7 ---
+  Padres refinados: 1196 | Hojas: 1196 -> 9568
+  Clasificación:     Dentro: 1782 | Borde: 4810 | Fuera: 2976
+  Poda: 9568 -> 6592 hojas  (eliminados: 2976)
+  RAM etapa: pico 0.53 MB | tiempo 0.058 s
+
+--- Etapa 8 ---
+  Padres refinados: 6592 | Hojas: 6592 -> 52736
+  Clasificación:     Dentro: 20346 | Borde: 18272 | Fuera: 14118
+  Poda: 52736 -> 38618 hojas  (eliminados: 14118)
+  RAM etapa: pico 2.58 MB | tiempo 0.390 s
+
+--- Etapa 9 ---
+  Padres refinados: 38618 | Hojas: 38618 -> 308944
+  Clasificación:     Dentro: 188043 | Borde: 75136 | Fuera: 45765
+  Poda: 308944 -> 263179 hojas  (eliminados: 45765)
+  RAM etapa: pico 15.54 MB | tiempo 3.072 s
+
+--- Etapa 10 ---
+  Padres refinados: 263179 | Hojas: 263179 -> 2105432
+  Clasificación:     Dentro: 1666857 | Borde: 298037 | Fuera: 140538
+  Poda: 2105432 -> 1964894 hojas  (eliminados: 140538)
+  RAM etapa: pico 109.31 MB | tiempo 20.639 s
+
+
+=== Resultado final: 1964894 cubos sobrevivientes ===
+  Dentro: 1666857 | Borde: 298037
+  Refinamiento uniforme produciría: 1073741824 cubos (reducción: 99.8%)
+
+=== Tiempo y RAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     192 B |   86.38 KB |     0.018
+     2 |         16 |          0 |         16 |     384 B |   88.32 KB |     0.027
+     3 |         32 |          0 |         32 |     768 B |   90.70 KB |     0.017
+     4 |         64 |          0 |         64 |   1.50 KB |   95.45 KB |     0.019
+     5 |        208 |          0 |        208 |   4.88 KB |  106.82 KB |     0.018
+     6 |       1196 |         28 |       1168 |  28.03 KB |  165.98 KB |     0.016
+     7 |       6592 |       1782 |       4810 | 154.50 KB |  539.45 KB |     0.058
+     8 |      38618 |      20346 |      18272 | 905.11 KB |    2.58 MB |     0.390
+     9 |     263179 |     188043 |      75136 |   6.02 MB |   15.54 MB |     3.072
+    10 |    1964894 |    1666857 |     298037 |  44.97 MB |  109.31 MB |    20.639
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en RAM      : 24 B
+  Malla en RAM (constante)      : 85.95 KB
+  Pico calculado del algoritmo  : 109.31 MB
+  Pico real del proceso (VmHWM) : 111.73 MB
+  Tiempo total de refinamiento  : 24.273 s
+  Hilos OpenMP usados           : 20
+VTK exportado: output/octree_cpu_multi_uniform_level_10.vtk  (1964894 cubos, 15719152 puntos)
+
+¡Refinamiento completado exitosamente!

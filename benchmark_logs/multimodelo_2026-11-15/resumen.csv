@@ -1,0 +1,17 @@
+modelo,implementacion,modo,repeticion,vertices,triangulos,nivel_max_completado,hojas_nivel_max,tiempo_etapas_s,pico_max_etapa_MB,tiempo_pared_s,rss_max_MB,codigo_salida,estado,nivel_fallido,primer_error
+cortex,CPU multihilo (OpenMP),adaptive,1,3152,6300,8,435289,89.097,26.86,1800.0,29.6,124,límite de tiempo (timeout),9,
+cortex,CPU multihilo (OpenMP),uniform,1,3152,6300,9,36775618,339.292,1978.02,362.7,1980.4,139,segfault: malloc sin comprobar (memoria agotada),10,
+cortex,GPU (CUDA base),adaptive,1,3152,6300,10,7161958,2.016,821.96,7.81,436.4,0,completado,,
+cortex,GPU (CUDA base),uniform,1,3152,6300,9,36775635,6.578,3408.67,11.3,108.6,1,sin VRAM (CUDA out of memory),10,CUDA error en src/octree.cu:293 — out of memory
+femur,CPU multihilo (OpenMP),adaptive,1,1847,3690,10,1418321,1061.803,86.59,1067.2,88.9,0,completado,,
+femur,CPU multihilo (OpenMP),uniform,1,1847,3690,10,19076458,91.922,1029.64,163.19,1032.1,0,completado,,
+femur,GPU (CUDA base),adaptive,1,1847,3690,10,1425160,0.415,162.88,3.3,173.2,0,completado,,
+femur,GPU (CUDA base),uniform,1,1847,3690,10,19076458,3.787,1778.91,21.41,981.4,0,completado,,
+sein,CPU multihilo (OpenMP),adaptive,1,1248,2492,9,1105016,493.499,67.81,1800.01,70.6,124,límite de tiempo (timeout),10,
+sein,CPU multihilo (OpenMP),uniform,1,1248,2492,9,13193393,38.616,713.4,337.24,3223.4,139,segfault: malloc sin comprobar (memoria agotada),10,
+sein,GPU (CUDA base),adaptive,1,1248,2492,10,4480546,0.582,514.62,3.8,313.2,0,completado,,
+sein,GPU (CUDA base),uniform,1,1248,2492,10,104407191,16.157,9663.17,228.46,4887.6,0,completado,,
+sutureHC,CPU multihilo (OpenMP),adaptive,1,2446,4888,10,569269,65.825,34.78,67.37,36.5,0,completado,,
+sutureHC,CPU multihilo (OpenMP),uniform,1,2446,4888,10,1964894,24.274,109.31,29.47,111.7,0,completado,,
+sutureHC,GPU (CUDA base),adaptive,1,2446,4888,10,569269,0.223,65.07,2.52,134.5,0,completado,,
+sutureHC,GPU (CUDA base),uniform,1,2446,4888,10,1964894,0.54,192.84,1.96,197.7,0,completado,,

@@ -1,0 +1,106 @@
+=== Octree CUDA — Refinamiento con Malla ===
+Niveles de refinamiento: 10
+Modo de refinamiento   : adaptativo con balance 2:1
+Modelo: /home/joytan/paralelo/external/MixedOcTree/data/femur.mdl
+
+[MDL] Cargado '/home/joytan/paralelo/external/MixedOcTree/data/femur.mdl'
+      Vértices : 1847
+      Triángulos: 3690
+      BBox min  : (-76.07, -26.81, -20.56)
+      BBox max  : (-23.22, 21.25, 177.00)
+      Centro    : (-49.65, -2.78, 78.22)
+      Half-size : 103.72
+
+Cubo raíz:
+  Centro    : (-49.65, -2.78, 78.22)
+  Half-size : 103.72
+
+--- Etapa 1 ---
+  Padres refinados: 1 | Hojas: 1 -> 8
+  Clasificación: ejecutada en GPU
+  Poda: 8 -> 8 hojas  (eliminados: 0)
+  VRAM etapa: pico 0.06 MB | tiempo 0.005 s
+
+--- Etapa 2 ---
+  Padres refinados: 8 | Hojas: 8 -> 64
+  Clasificación: ejecutada en GPU
+  Poda: 64 -> 16 hojas  (eliminados: 48)
+  VRAM etapa: pico 0.07 MB | tiempo 0.003 s
+
+--- Etapa 3 ---
+  Padres refinados: 16 | Hojas: 16 -> 128
+  Clasificación: ejecutada en GPU
+  Poda: 128 -> 35 hojas  (eliminados: 93)
+  VRAM etapa: pico 0.08 MB | tiempo 0.002 s
+
+--- Etapa 4 ---
+  Padres refinados: 35 | Hojas: 35 -> 280
+  Clasificación: ejecutada en GPU
+  Poda: 280 -> 193 hojas  (eliminados: 87)
+  VRAM etapa: pico 0.09 MB | tiempo 0.002 s
+
+--- Etapa 5 ---
+  Padres refinados: 181 | Hojas: 193 -> 1460
+  Clasificación: ejecutada en GPU
+  Poda: 1460 -> 913 hojas  (eliminados: 547)
+  VRAM etapa: pico 0.20 MB | tiempo 0.002 s
+
+--- Etapa 6 ---
+  Padres refinados: 733 | Hojas: 913 -> 6044
+  Clasificación: ejecutada en GPU
+  Poda: 6044 -> 4181 hojas  (eliminados: 1863)
+  VRAM etapa: pico 0.62 MB | tiempo 0.003 s
+
+--- Etapa 7 ---
+  Padres refinados: 3037 | Hojas: 4181 -> 25440
+  Clasificación: ejecutada en GPU
+  Poda: 25440 -> 18811 hojas  (eliminados: 6629)
+  VRAM etapa: pico 2.39 MB | tiempo 0.006 s
+
+--- Etapa 8 ---
+  Padres refinados: 12449 | Hojas: 18811 -> 105954
+  Clasificación: ejecutada en GPU
+  Poda: 105954 -> 82512 hojas  (eliminados: 23442)
+  VRAM etapa: pico 9.76 MB | tiempo 0.017 s
+
+--- Etapa 9 ---
+  Padres refinados: 50611 | Hojas: 82512 -> 436789
+  Clasificación: ejecutada en GPU
+  Poda: 436789 -> 347439 hojas  (eliminados: 89350)
+  VRAM etapa: pico 40.05 MB | tiempo 0.068 s
+
+--- Etapa 10 ---
+  Padres refinados: 204425 | Hojas: 347439 -> 1778414
+  Clasificación: ejecutada en GPU
+  Poda: 1778414 -> 1425160 hojas  (eliminados: 353254)
+  VRAM etapa: pico 162.88 MB | tiempo 0.307 s
+
+
+=== Resultado final: 1425160 cubos sobrevivientes ===
+  Dentro: 699730 | Borde: 725430
+  Refinamiento uniforme produciría: 1073741824 cubos (reducción: 99.9%)
+
+=== Tiempo y VRAM por nivel ===
+ Nivel |      Hojas |     Dentro |      Borde |    Octree | Pico etapa | Tiempo (s)
+-------+------------+------------+------------+-----------+------------+-----------
+     1 |          8 |          0 |          8 |     384 B |   65.64 KB |     0.005
+     2 |         16 |          0 |         16 |     768 B |   70.89 KB |     0.003
+     3 |         35 |          0 |         35 |   1.64 KB |   76.89 KB |     0.002
+     4 |        193 |         12 |        181 |   9.05 KB |   91.14 KB |     0.002
+     5 |        913 |        192 |        721 |  42.80 KB |  201.76 KB |     0.002
+     6 |       4181 |       1330 |       2851 | 195.98 KB |  631.51 KB |     0.003
+     7 |      18811 |       7515 |      11296 | 881.77 KB |    2.39 MB |     0.006
+     8 |      82512 |      37303 |      45209 |   3.78 MB |    9.76 MB |     0.017
+     9 |     347439 |     166219 |     181220 |  15.90 MB |   40.05 MB |     0.068
+    10 |    1425160 |     699730 |     725430 |  65.24 MB |  162.88 MB |     0.307
+-------+------------+------------+------------+-----------+------------+-----------
+  Tamano de un cubo en VRAM     : 48 B
+  Malla en VRAM (constante)     : 64.89 KB
+  Pico calculado del algoritmo  : 162.88 MB
+  Pico medido por el driver     : 168.00 MB
+  Contexto CUDA (linea base)    : 1.04 GB
+  VRAM total del dispositivo    : 6.00 GB
+  Tiempo total de refinamiento  : 0.416 s
+VTK binario exportado: output/octree_pruned_level_10.vtk  (1425160 cubos, 11401280 puntos)
+
+¡Refinamiento completado exitosamente!

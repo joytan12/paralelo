@@ -1,0 +1,34 @@
+[23:04:09] CAMPANA INICIO
+[23:04:09] INICIO cortex_gpu_adaptive (timeout 3600s)
+[23:04:17] FIN cortex_gpu_adaptive exit=0
+[23:04:17] INICIO cortex_gpu_uniform (timeout 3600s)
+[23:04:28] FIN cortex_gpu_uniform exit=1
+[23:04:28] INICIO cortex_cpu_uniform (timeout 3600s)
+[23:10:31] FIN cortex_cpu_uniform exit=139
+[23:10:31] INICIO cortex_cpu_adaptive (timeout 1800s)
+[23:40:31] FIN cortex_cpu_adaptive exit=124
+[23:40:31] INICIO sein_gpu_adaptive (timeout 3600s)
+[23:40:35] FIN sein_gpu_adaptive exit=0
+[23:40:35] INICIO sein_gpu_uniform (timeout 3600s)
+[23:44:25] FIN sein_gpu_uniform exit=0
+[23:44:25] INICIO sein_cpu_uniform (timeout 3600s)
+[23:50:02] FIN sein_cpu_uniform exit=139
+[23:50:02] INICIO sein_cpu_adaptive (timeout 1800s)
+[00:20:02] FIN sein_cpu_adaptive exit=124
+[00:20:02] INICIO femur_gpu_adaptive (timeout 3600s)
+[00:20:05] FIN femur_gpu_adaptive exit=0
+[00:20:05] INICIO femur_gpu_uniform (timeout 3600s)
+[00:20:27] FIN femur_gpu_uniform exit=0
+[00:20:27] INICIO femur_cpu_uniform (timeout 3600s)
+[00:23:11] FIN femur_cpu_uniform exit=0
+[00:23:11] INICIO femur_cpu_adaptive (timeout 1800s)
+[00:40:59] FIN femur_cpu_adaptive exit=0
+[00:40:59] INICIO sutureHC_gpu_adaptive (timeout 3600s)
+[00:41:01] FIN sutureHC_gpu_adaptive exit=0
+[00:41:01] INICIO sutureHC_gpu_uniform (timeout 3600s)
+[00:41:03] FIN sutureHC_gpu_uniform exit=0
+[00:41:03] INICIO sutureHC_cpu_uniform (timeout 3600s)
+[00:41:33] FIN sutureHC_cpu_uniform exit=0
+[00:41:33] INICIO sutureHC_cpu_adaptive (timeout 1800s)
+[00:42:40] FIN sutureHC_cpu_adaptive exit=0
+[00:42:40] CAMPANA FIN
